@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-ClubeDaUltimaPaginaApplication<clube_da_ultima_pagina>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "com.clubedolivro.clube_da_ultima_pagina.ClubeDaUltimaPaginaApplication",
+      "projectName": "clube_da_ultima_pagina",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
