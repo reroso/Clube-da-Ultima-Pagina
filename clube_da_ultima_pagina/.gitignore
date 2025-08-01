@@ -31,3 +31,17 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Database Files ###
+*.mv.db
+*.trace.db
+*.lock.db
+*.h2.db
+*.db
+*.sqlite
+*.sqlite3
+exemplo.mv.db
+
+### Pastas fora do projeto ###
+../.vscode/
+../data/
