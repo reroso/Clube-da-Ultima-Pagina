@@ -41,7 +41,3 @@ build/
 *.sqlite
 *.sqlite3
 exemplo.mv.db
-
-### Pastas fora do projeto ###
-../.vscode/
-../data/
