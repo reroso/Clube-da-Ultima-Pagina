@@ -1,0 +1,5 @@
+# .gitignore for Clube da Ultima Pagina project
+.vscode/
+data/
+**/data/
+clube_da_ultima_pagina/data/
