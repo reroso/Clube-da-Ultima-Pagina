@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @RequestMapping(path = "teste_endpoint")
-public class TesteEndPoint {
+public class TesteEndPointController {
     @GetMapping("/{id}")
     public String getHomePage(@PathVariable("id") String id, Model model) {
         model.addAttribute("id", id);
