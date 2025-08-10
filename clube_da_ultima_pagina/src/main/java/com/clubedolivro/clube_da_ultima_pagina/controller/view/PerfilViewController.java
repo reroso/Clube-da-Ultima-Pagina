@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class UsuarioViewController {
+public class PerfilViewController {
 
-    @GetMapping("/usuario")
-    public String usuarioPage() {
-        return "usuario.html";
+    @GetMapping("/perfil")
+    public String perfilPage() {
+        return "perfil.html";
     }
 }
