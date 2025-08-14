@@ -2,9 +2,45 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
-    <title>Usuário</title>
+    <title>Usuários</title>
   </head>
   <body>
-    <h1>Olá, aqui será a página (thymeleaf) de Usuário</h1>
+    <h1>Lista de Usuários</h1>
+    <table border="1">
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Perfil</th>
+      </tr>
+      <tr th:each="usuario : ${usuarios}">
+        <td th:text="${usuario.id}"></td>
+        <td th:text="${usuario.nome}"></td>
+        <td th:text="${usuario.email}"></td>
+        <td th:text="${usuario.tipo}"></td>
+      </tr>
+    </table>
+
+    <h2>Cadastrar Novo Usuário</h2>
+    <form th:action="@{/usuario}" th:object="${usuarioForm}" method="post">
+      <label>Nome: <input type="text" th:field="*{nome}" required /></label
+      ><br />
+      <label>Email: <input type="email" th:field="*{email}" required /></label
+      ><br />
+      <label
+        >Senha: <input type="password" th:field="*{senha}" required /></label
+      ><br />
+      <label
+        >Perfil:
+        <select th:field="*{tipo}">
+          <option
+            th:each="tipo : ${tiposPerfil}"
+            th:value="${tipo}"
+            th:text="${tipo}"
+          ></option>
+        </select> </label
+      ><br />
+      <button type="submit">Cadastrar</button>
+    </form>
   </body>
 </html>
