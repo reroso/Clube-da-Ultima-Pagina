@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lista de Usuários</title>
+    </head>
+    <body>
+        <h1>Lista de Usuários</h1>
+        
+        <p><strong>Total de usuários: </strong><span th:text="${#lists.size(usuarios)}">0</span></p>
+        
+        <div th:if="${#lists.isEmpty(usuarios)}">
+            <p><em>Nenhum usuário cadastrado.</em></p>
+        </div>
+        
+        <table th:unless="${#lists.isEmpty(usuarios)}" style="border: 1px solid black; border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid black; padding: 5px;">ID</th>
+                    <th style="border: 1px solid black; padding: 5px;">Nome</th>
+                    <th style="border: 1px solid black; padding: 5px;">Email</th>
+                    <th style="border: 1px solid black; padding: 5px;">Perfil</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <td style="border: 1px solid black; padding: 5px;" th:text="${usuario.id}">1</td>
+                    <td style="border: 1px solid black; padding: 5px;" th:text="${usuario.nome}">Nome</td>
+                    <td style="border: 1px solid black; padding: 5px;" th:text="${usuario.email}">email@teste.com</td>
+                    <td style="border: 1px solid black; padding: 5px;" th:text="${usuario.tipo}">MEMBRO</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p>
+            <a href="/usuario">Cadastrar Novo Usuário</a>
+        </p>
+    </body>
+</html>
