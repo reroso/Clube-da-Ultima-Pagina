@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+  <head>
+      <meta charset="UTF-8">
+      <title>Cadastro de Usuário</title>
+  </head>
+  <body>
+      <h1>Cadastro de Usuário</h1>
+      
+      <!-- Mensagem de Sucesso -->
+      <div th:if="${sucessoMensagem}" style="color: green;">
+          <p><strong th:text="${sucessoMensagem}"></strong></p>
+      </div>
+      
+      <!-- Mensagem de Erro -->
+      <div th:if="${erroMensagem}" style="color: red;">
+          <p><strong th:text="${erroMensagem}"></strong></p>
+          <ul th:if="${erros}">
+              <li th:each="erro : ${erros}" th:text="${erro.defaultMessage}"></li>
+          </ul>
+      </div>
+
+      <form th:action="@{/usuario}" th:object="${usuarioForm}" method="post">
+          <p>
+              <label>Nome:</label><br>
+              <input type="text" th:field="*{nome}" required />
+          </p>
+          
+          <p>
+              <label>Email:</label><br>
+              <input type="email" th:field="*{email}" required />
+          </p>
+          
+          <p>
+              <label>Senha:</label><br>
+              <input type="password" th:field="*{senha}" required />
+          </p>
+          
+          <p>
+              <label>Perfil:</label><br>
+              <select th:field="*{tipo}" required>
+                  <option value="">Selecione...</option>
+                  <option th:each="tipo : ${tiposPerfil}" th:value="${tipo}" th:text="${tipo}"></option>
+              </select>
+          </p>
+          
+          <p>
+              <button type="submit">Cadastrar</button>
+          </p>
+      </form>
+      
+      <p>
+          <a href="/lista-usuarios">Ver Lista de Usuários</a>
+      </p>
+  </body>
+</html>
