@@ -1,39 +1,54 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <title>Lista de Usuários</title>
-    </head>
-    <body>
-        <h1>Lista de Usuários</h1>
-        
-        <p><strong>Total de usuários: </strong><span th:text="${#lists.size(usuarios)}">0</span></p>
-        
-        <div th:if="${#lists.isEmpty(usuarios)}">
-            <p><em>Nenhum usuário cadastrado.</em></p>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
+<head>
+    <title>Lista de Usuários - Virtual Book Club</title>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="flex justify-center py-8">
+            <div class="w-full max-w-6xl px-4">
+                <h1 class="text-white text-2xl font-bold mb-6">Lista de Usuários</h1>
+                
+                <div class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <p class="text-white mb-4">
+                        <strong>Total de usuários: </strong>
+                        <span th:text="${#lists.size(usuarios)}">0</span>
+                    </p>
+                    
+                    <div th:if="${#lists.isEmpty(usuarios)}" class="text-white italic">
+                        <p>Nenhum usuário cadastrado.</p>
+                    </div>
+                    
+                    <div th:unless="${#lists.isEmpty(usuarios)}" class="overflow-x-auto">
+                        <table class="min-w-full bg-white rounded-lg overflow-hidden">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">ID</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Nome</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Email</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Perfil</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                <tr th:each="usuario : ${usuarios}">
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" th:text="${usuario.id}">1</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" th:text="${usuario.nome}">Nome</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" th:text="${usuario.email}">email@teste.com</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" th:text="${usuario.tipo}">MEMBRO</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <a href="/usuario" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            Cadastrar Novo Usuário
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <table th:unless="${#lists.isEmpty(usuarios)}" style="border: 1px solid black; border-collapse: collapse;">
-            <thead>
-                <tr>
-                    <th style="border: 1px solid black; padding: 5px;">ID</th>
-                    <th style="border: 1px solid black; padding: 5px;">Nome</th>
-                    <th style="border: 1px solid black; padding: 5px;">Email</th>
-                    <th style="border: 1px solid black; padding: 5px;">Perfil</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="usuario : ${usuarios}">
-                    <td style="border: 1px solid black; padding: 5px;" th:text="${usuario.id}">1</td>
-                    <td style="border: 1px solid black; padding: 5px;" th:text="${usuario.nome}">Nome</td>
-                    <td style="border: 1px solid black; padding: 5px;" th:text="${usuario.email}">email@teste.com</td>
-                    <td style="border: 1px solid black; padding: 5px;" th:text="${usuario.tipo}">MEMBRO</td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <p>
-            <a href="/usuario">Cadastrar Novo Usuário</a>
-        </p>
-    </body>
+    </div>
+</body>
 </html>
