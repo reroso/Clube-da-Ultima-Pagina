@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Grupo</title>
-  </head>
-  <body>
-    <h1>Olá, aqui será a página (thymeleaf) de Grupo</h1>
-  </body>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
+<head>
+    <title>Grupos - Virtual Book Club</title>
+</head>
+<body>
+        <div class="content-wrapper">
+            <div class="flex justify-center py-8">
+                <div class="w-full max-w-4xl px-4">
+                    <h1 class="text-white text-2xl font-bold mb-6">Grupos</h1>
+                    <div class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                        <!-- Conteúdo específico da página aqui -->
+                        <p class="text-white">Olá, aqui será a página de Grupos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
