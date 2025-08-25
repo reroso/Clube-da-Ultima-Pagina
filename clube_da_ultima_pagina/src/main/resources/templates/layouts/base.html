@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" th:fragment="base(titulo, conteudo)">
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+        rel="stylesheet"
+        as="style"
+        onload="this.rel='stylesheet'"
+        href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+    <title th:replace="${titulo}">Virtual Book Club</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+<body>
+    <div class="relative flex size-full min-h-screen flex-col bg-[#101a23] dark group/design-root overflow-x-hidden" style="font-family: Inter, 'Noto Sans', sans-serif">
+        <div class="layout-container flex h-full grow flex-col">
+            <!-- Header -->
+            <div th:replace="layouts/header :: header"></div>
+
+            <!-- Main Content -->
+            <div class="flex flex-1 justify-center py-5">
+                <div class="w-full">
+                    <div th:replace="${conteudo}">
+                        <!-- Aqui é inserido o conteúdo por parâmetro no fragmento -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div th:replace="layouts/footer :: footer"></div>
+        </div>
+    </div>
+</body>
+</html>
