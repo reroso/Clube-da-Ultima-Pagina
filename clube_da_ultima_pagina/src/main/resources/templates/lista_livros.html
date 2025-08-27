@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
+<head>
+    <title>Lista de Livros - Virtual Book Club</title>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="flex justify-center">
+            <div class="w-full max-w-6xl px-4">
+                <h1 class="text-white text-2xl font-bold mb-6 text-center">Lista de Livros</h1>
+                
+                <!-- Mensagem de Sucesso -->
+                <div th:if="${sucessoMensagem}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                    <span th:text="${sucessoMensagem}"></span>
+                </div>
+
+                <div class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <p class="text-white mb-4">
+                        <strong>Total de livros: </strong>
+                        <span th:text="${#lists.size(livros)}">0</span>
+                    </p>
+                    
+                    <div th:if="${#lists.isEmpty(livros)}" class="text-white italic">
+                        <p>Nenhum livro cadastrado.</p>
+                    </div>
+                    
+                    <div th:unless="${#lists.isEmpty(livros)}" class="overflow-x-auto">
+                        <table class="min-w-full bg-white rounded-lg overflow-hidden">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">ID</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Título</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Autor</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Descrição</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                <tr th:each="livro : ${livros}">
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" th:text="${livro.id}">1</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 font-medium text-gray-900" th:text="${livro.titulo}">Título do Livro</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" th:text="${livro.autor}">Nome do Autor</td>
+                                    <td class="px-6 py-4 border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-900" th:text="${livro.descricao ?: 'Sem descrição'}">Descrição do livro</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <a href="/livro" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            Cadastrar Novo Livro
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

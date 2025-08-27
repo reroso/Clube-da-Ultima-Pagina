@@ -2,15 +2,39 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
 <head>
-    <title>Perfil - Virtual Book Club</title>
+    <title>Perfis - Virtual Book Club</title>
 </head>
 <body>
-        <div class="content-wrapper">
-            <div class="flex justify-center py-8">
-                <div class="w-full max-w-4xl px-4">
-                    <h1 class="text-white text-2xl font-bold mb-6">Perfil</h1>
-                    <div class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                        <p class="text-white">Olá, aqui será a página de Perfil</p>
+    <div class="content-wrapper">
+        <div class="flex justify-center py-8">
+            <div class="w-full max-w-4xl px-4">
+                <h1 class="text-white text-2xl font-bold mb-6">Perfis do Sistema</h1>
+                
+                <div class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <p class="text-white mb-4">
+                        <strong>Total de perfis: </strong>
+                        <span th:text="${#lists.size(perfis)}">0</span>
+                    </p>
+                    
+                    <div th:if="${#lists.isEmpty(perfis)}" class="text-white italic">
+                        <p>Nenhum perfil encontrado.</p>
+                    </div>
+                    
+                    <div th:unless="${#lists.isEmpty(perfis)}" class="overflow-x-auto">
+                        <table class="min-w-full bg-white rounded-lg overflow-hidden">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">ID</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Nome</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                <tr th:each="perfil : ${perfis}">
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" th:text="${perfil.id}">1</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" th:text="${perfil.nome}">Nome do Perfil</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

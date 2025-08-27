@@ -2,18 +2,78 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
 <head>
-    <title>Grupos - Virtual Book Club</title>
+    <title>Criar Grupo - Virtual Book Club</title>
 </head>
 <body>
-        <div class="content-wrapper">
-            <div class="flex justify-center py-8">
-                <div class="w-full max-w-4xl px-4">
-                    <h1 class="text-white text-2xl font-bold mb-6">Grupos</h1>
-                    <div class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                        <!-- Conteúdo específico da página aqui -->
-                        <p class="text-white">Olá, aqui será a página de Grupos</p>
-                    </div>
+    <div class="content-wrapper">
+        <div class="flex justify-center">
+            <div class="w-full max-w-md">
+                <h1 class="text-white text-2xl font-bold mb-6 text-center">Criar Grupo de Leitura</h1>
+                
+                <!-- Mensagem de Sucesso -->
+                <div th:if="${sucessoMensagem}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                    <span th:text="${sucessoMensagem}"></span>
                 </div>
+                
+                <!-- Mensagem de Erro -->
+                <div th:if="${erroMensagem}" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                    <span th:text="${erroMensagem}"></span>
+                    <ul th:if="${erros}" class="list-disc list-inside mt-2">
+                        <li th:each="erro : ${erros}" th:text="${erro.defaultMessage}"></li>
+                    </ul>
+                </div>
+
+                <form th:action="@{/grupo}" th:object="${grupoForm}" method="post" class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <div class="mb-4">
+                        <label class="block text-white text-sm font-bold mb-2" for="nome">
+                            Nome do Grupo
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                               id="nome"
+                               type="text"
+                               th:field="*{nome}"
+                               required
+                               placeholder="Digite o nome do grupo">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-white text-sm font-bold mb-2" for="descricao">
+                            Descrição
+                        </label>
+                        <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                  id="descricao"
+                                  th:field="*{descricao}"
+                                  rows="4"
+                                  placeholder="Digite uma descrição para o grupo..."></textarea>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-white text-sm font-bold mb-2" for="liderId">
+                            Líder do Grupo
+                        </label>
+                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                id="liderId"
+                                name="liderId"
+                                required>
+                            <option value="">Selecione o líder...</option>
+                            <option th:each="usuario : ${usuarios}" 
+                                    th:value="${usuario.id}" 
+                                    th:text="${usuario.nome}">
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                type="submit">
+                            Criar Grupo
+                        </button>
+                        <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+                           href="/lista-grupos">
+                            Ver Lista de Grupos
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

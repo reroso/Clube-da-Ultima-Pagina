@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
+<head>
+    <title>Lista de Encontros - Virtual Book Club</title>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-white text-2xl font-bold">Lista de Encontros</h1>
+                <a href="/encontro" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Agendar Novo Encontro
+                </a>
+            </div>
+
+            <!-- Mensagem quando não há encontros -->
+            <div th:if="${#lists.isEmpty(encontros)}" class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3 mb-6">
+                <p class="text-center">Não há encontros agendados.</p>
+            </div>
+
+            <!-- Lista de Encontros -->
+            <div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <div th:each="encontro : ${encontros}" class="bg-[#223649] rounded-lg shadow-lg p-6">
+                    <div class="mb-4">
+                        <h3 class="text-white text-xl font-bold mb-2" th:text="${encontro.grupo.nome}">Nome do Grupo</h3>
+                        <p class="text-gray-300" th:text="${#temporals.format(encontro.dataHora, 'dd/MM/yyyy HH:mm')}">Data e Hora</p>
+                    </div>
+                    <p class="text-gray-400 mb-4" th:text="${encontro.descricao ?: 'Sem descrição'}">Descrição do encontro</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
