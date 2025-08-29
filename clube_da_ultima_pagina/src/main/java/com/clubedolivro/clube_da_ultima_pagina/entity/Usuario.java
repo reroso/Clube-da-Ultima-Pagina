@@ -44,12 +44,6 @@ public class Usuario {
     private List<AcaoAdministrativa> acoesRecebidas;
     
     @OneToMany(mappedBy = "usuario")
-    private List<CapituloLido> capitulosLidos;
-    
-    @OneToMany(mappedBy = "usuario")
-    private List<Anotacao> anotacoes;
-    
-    @OneToMany(mappedBy = "usuario")
     private List<Voto> votos;
 
     // Getters e Setters
@@ -115,22 +109,6 @@ public class Usuario {
 
     public void setAcoesRecebidas(List<AcaoAdministrativa> acoesRecebidas) {
         this.acoesRecebidas = acoesRecebidas;
-    }
-
-    public List<CapituloLido> getCapitulosLidos() {
-        return capitulosLidos;
-    }
-
-    public void setCapitulosLidos(List<CapituloLido> capitulosLidos) {
-        this.capitulosLidos = capitulosLidos;
-    }
-
-    public List<Anotacao> getAnotacoes() {
-        return anotacoes;
-    }
-
-    public void setAnotacoes(List<Anotacao> anotacoes) {
-        this.anotacoes = anotacoes;
     }
 
     public List<Voto> getVotos() {
