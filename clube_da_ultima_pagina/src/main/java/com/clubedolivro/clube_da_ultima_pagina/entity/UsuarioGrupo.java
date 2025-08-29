@@ -9,12 +9,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.Data;
 
 @Entity
 @Table(
     name = "usuario_grupo",
     uniqueConstraints = @UniqueConstraint(columnNames = {"id_usuario", "id_grupo"})
 )
+@Data
 public class UsuarioGrupo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,37 +34,4 @@ public class UsuarioGrupo {
     @ManyToOne
     @JoinColumn(name = "id_perfil")
     private Perfil perfil;
-
-    // Getters e Setters
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Grupo getGrupo() {
-        return grupo;
-    }
-
-    public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
-    }
-
-    public Perfil getPerfil() {
-        return perfil;
-    }
-
-    public void setPerfil(Perfil perfil) {
-        this.perfil = perfil;
-    }
 }

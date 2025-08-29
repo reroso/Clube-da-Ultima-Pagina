@@ -9,9 +9,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name = "acao_administrativa")
+@Data
 public class AcaoAdministrativa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,45 +33,4 @@ public class AcaoAdministrativa {
 
     @Column(name = "data")
     private LocalDateTime data;
-
-    // Getters e Setters
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Usuario getAdmin() {
-        return admin;
-    }
-
-    public void setAdmin(Usuario admin) {
-        this.admin = admin;
-    }
-
-    public Usuario getUsuarioAfetado() {
-        return usuarioAfetado;
-    }
-
-    public void setUsuarioAfetado(Usuario usuarioAfetado) {
-        this.usuarioAfetado = usuarioAfetado;
-    }
-
-    public String getAcao() {
-        return acao;
-    }
-
-    public void setAcao(String acao) {
-        this.acao = acao;
-    }
-
-    public LocalDateTime getData() {
-        return data;
-    }
-
-    public void setData(LocalDateTime data) {
-        this.data = data;
-    }
 }

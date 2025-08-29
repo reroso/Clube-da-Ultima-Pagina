@@ -9,9 +9,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name = "sugestao_livro")
+@Data
 public class SugestaoLivro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,37 +30,4 @@ public class SugestaoLivro {
 
     @Column(name = "data_sugestao")
     private LocalDateTime dataSugestao;
-
-    // Getters e Setters
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Grupo getGrupo() {
-        return grupo;
-    }
-
-    public void setGrupo(Grupo grupo) {
-        this.grupo = grupo;
-    }
-
-    public Livro getLivro() {
-        return livro;
-    }
-
-    public void setLivro(Livro livro) {
-        this.livro = livro;
-    }
-
-    public LocalDateTime getDataSugestao() {
-        return dataSugestao;
-    }
-
-    public void setDataSugestao(LocalDateTime dataSugestao) {
-        this.dataSugestao = dataSugestao;
-    }
 }

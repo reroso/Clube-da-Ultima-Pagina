@@ -9,12 +9,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.Data;
 
 @Entity
 @Table(
     name = "voto",
     uniqueConstraints = @UniqueConstraint(columnNames = {"id_sugestao_livro", "id_usuario"})
 )
+@Data
 public class Voto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,37 +33,4 @@ public class Voto {
 
     @Column(name = "voto")
     private Boolean voto;
-
-    // Getters e Setters
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public SugestaoLivro getSugestaoLivro() {
-        return sugestaoLivro;
-    }
-
-    public void setSugestaoLivro(SugestaoLivro sugestaoLivro) {
-        this.sugestaoLivro = sugestaoLivro;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Boolean getVoto() {
-        return voto;
-    }
-
-    public void setVoto(Boolean voto) {
-        this.voto = voto;
-    }
 }
