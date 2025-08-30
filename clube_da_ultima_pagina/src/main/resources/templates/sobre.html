@@ -1,18 +1,30 @@
 <!DOCTYPE html>
+<!-- 
+    Página "Sobre" do Clube da Última Página
+    Esta página apresenta informações sobre a plataforma, missão e funcionamento
+    Utiliza Thymeleaf como template engine e Tailwind CSS para estilização
+-->
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
+
 <head>
     <title>Sobre - Clube da Ultima Página</title>
 </head>
+
 <body>
+    <!-- Container principal da página -->
     <div class="content-wrapper">
         <div class="flex justify-center py-8">
             <div class="w-full max-w-6xl px-4">
-                <h1 class="text-white text-3xl font-bold mb-8 text-center">Sobre o Clube da Ultima Página</h1>
+                <!-- Título principal da página -->
+                <h1 class="text-white text-3xl font-bold mb-8 text-center">
+                    Sobre o Clube da Ultima Página
+                </h1>
                 
-                <!-- Card principal com a imagem -->
+                <!-- Seção principal com informações sobre a plataforma -->
                 <div class="bg-[#223649] shadow-md rounded-lg px-8 pt-6 pb-8 mb-8">
                     <div class="flex flex-col lg:flex-row items-center gap-8">
+                        
                         <!-- Imagem do desenvolvedor -->
                         <div class="lg:w-1/2 flex justify-center">
                             <img th:src="@{/images/dev.jpg}" 
@@ -20,18 +32,23 @@
                                  class="max-w-full h-auto rounded-lg shadow-lg hover:scale-105 transition-transform duration-300">
                         </div>
                         
-                        <!-- Conteúdo sobre -->
+                        <!-- Conteúdo descritivo sobre a missão -->
                         <div class="lg:w-1/2 text-white">
-                            <h2 class="text-2xl font-bold mb-4 text-center lg:text-left">Nossa Missão</h2>
+                            <h2 class="text-2xl font-bold mb-4 text-center lg:text-left">
+                                Nossa Missão
+                            </h2>
+                            
                             <p class="mb-4 text-gray-300 leading-relaxed">
                                 O Clube da Ultima Página é uma plataforma dedicada a conectar amantes da leitura 
                                 em um ambiente virtual colaborativo e interativo.
                             </p>
+                            
                             <p class="mb-4 text-gray-300 leading-relaxed">
                                 Nossa missão é facilitar a criação e gestão de grupos de leitura, 
                                 permitindo que pessoas com interesses similares se conectem e compartilhem 
                                 suas experiências literárias.
                             </p>
+                            
                             <p class="text-gray-300 leading-relaxed">
                                 Acreditamos que a leitura é mais enriquecedora quando compartilhada, 
                                 e nossa plataforma foi desenvolvida para tornar essa experiência 
@@ -41,17 +58,23 @@
                     </div>
                 </div>
                 
-                <!-- Como Funciona -->
+                <!-- Seção explicativa sobre funcionamento da plataforma -->
                 <div class="bg-[#223649] rounded-lg p-8 mb-8 text-white shadow-md">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        
+                        <!-- Coluna esquerda: Como funciona -->
                         <div>
                             <h3 class="text-2xl font-bold mb-6 flex items-center">
+                                <!-- Ícone de estrela -->
                                 <svg class="w-8 h-8 mr-3 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                 </svg>
                                 Como Funciona
                             </h3>
+                            
+                            <!-- Lista de passos para usar a plataforma -->
                             <div class="space-y-4">
+                                <!-- Passo 1: Cadastro -->
                                 <div class="flex items-start">
                                     <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mr-4 mt-1">
                                         <span class="text-white font-bold">1</span>
@@ -61,6 +84,8 @@
                                         <p class="text-gray-300">Crie seu perfil de leitor e comece sua jornada</p>
                                     </div>
                                 </div>
+                                
+                                <!-- Passo 2: Participação em grupos -->
                                 <div class="flex items-start">
                                     <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center mr-4 mt-1">
                                         <span class="text-white font-bold">2</span>
@@ -70,6 +95,8 @@
                                         <p class="text-gray-300">Participe de grupos existentes ou crie o seu próprio</p>
                                     </div>
                                 </div>
+                                
+                                <!-- Passo 3: Interação e descoberta -->
                                 <div class="flex items-start">
                                     <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center mr-4 mt-1">
                                         <span class="text-white font-bold">3</span>
@@ -82,18 +109,23 @@
                             </div>
                         </div>
                         
+                        <!-- Coluna direita: Por que nos escolher -->
                         <div>
                             <h3 class="text-2xl font-bold mb-6 flex items-center">
+                                <!-- Ícone de coração -->
                                 <svg class="w-8 h-8 mr-3 text-red-400" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>
                                 </svg>
                                 Por que nos escolher?
                             </h3>
+                            
+                            <!-- Card com citação e texto motivacional -->
                             <div class="bg-[#1a2332] p-6 rounded-lg">
                                 <blockquote class="italic text-gray-300 mb-4 border-l-4 border-blue-500 pl-4">
                                     "A leitura é uma conversa com os homens mais ilustres dos séculos passados."
                                     <cite class="block mt-2 text-sm text-blue-400">- René Descartes</cite>
                                 </blockquote>
+                                
                                 <p class="text-gray-300">
                                     No Clube da Ultima Página, acreditamos que essa conversa se torna ainda mais rica 
                                     quando compartilhada com outros leitores apaixonados. Junte-se a nós nesta jornada 
@@ -103,24 +135,28 @@
                         </div>
                     </div>
                     
-                    <!-- Botões de ação -->
+                    <!-- Seção de botões de call-to-action -->
                     <div class="text-center mt-8">
-                        <a th:href="@{/grupo}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg mr-4 inline-block transition-colors">
+                        <!-- Botão principal: Explorar Grupos -->
+                        <a th:href="@{/grupo}" 
+                           class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg mr-4 inline-block transition-colors">
+                            <!-- Ícone de usuários -->
                             <svg class="w-5 h-5 inline mr-2" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
                             </svg>
                             Explore os Grupos
                         </a>
-                        <a th:href="@{/livro}" class="border border-blue-600 text-blue-400 hover:bg-blue-600 hover:text-white font-bold py-3 px-6 rounded-lg inline-block transition-colors">
+                        
+                        <!-- Botão secundário: Ver Livros -->
+                        <a th:href="@{/livro}" 
+                           class="border border-blue-600 text-blue-400 hover:bg-blue-600 hover:text-white font-bold py-3 px-6 rounded-lg inline-block transition-colors">
+                            <!-- Ícone de livro -->
                             <svg class="w-5 h-5 inline mr-2" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/>
                             </svg>
                             Veja os Livros
                         </a>
                     </div>
-                </div>
-                
-                
                 </div>
             </div>
         </div>
