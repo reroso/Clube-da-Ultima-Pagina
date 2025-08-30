@@ -2,14 +2,17 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
 <head>
-    <title>Home - Clube da Ultima Página</title>
+    <title>Home - Clube da Última Página</title>
 </head>
 <body>
     <div class="content-wrapper">
         <div class="px-4 py-8">
             <!-- Hero Section -->
             <div class="text-center mb-12">
-                <h1 class="text-white text-4xl font-bold mb-4">Clube da Ultima Página</h1>
+                <h1 class="text-white text-4xl font-bold mb-4">Clube da Última Página</h1>
+                <div class="flex justify-center mb-6">
+                    <img src="/images/logo_certa.svg" alt="Logo Clube da Última Página" class="h-24 w-auto">
+                </div>
                 <p class="text-gray-300 text-lg max-w-2xl mx-auto">
                     Conecte-se com outros leitores, forme grupos de leitura e descubra novos livros incríveis.
                 </p>
@@ -19,7 +22,7 @@
             <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
                 <!-- Usuários -->
                 <a href="/usuario" class="group">
-                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg">
+                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg h-48 flex flex-col">
                         <div class="flex items-center mb-4">
                             <div class="bg-blue-500 rounded-lg p-3 mr-4">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -28,13 +31,13 @@
                             </div>
                             <h3 class="text-white text-xl font-bold">Usuários</h3>
                         </div>
-                        <p class="text-gray-300 text-sm">Cadastre novos usuários e gerencie perfis de leitores.</p>
+                        <p class="text-gray-300 text-sm flex-grow">Cadastre novos usuários e gerencie perfis de leitores.</p>
                     </div>
                 </a>
 
                 <!-- Grupos -->
                 <a href="/grupo" class="group">
-                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg">
+                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg h-48 flex flex-col">
                         <div class="flex items-center mb-4">
                             <div class="bg-green-500 rounded-lg p-3 mr-4">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -43,13 +46,13 @@
                             </div>
                             <h3 class="text-white text-xl font-bold">Grupos</h3>
                         </div>
-                        <p class="text-gray-300 text-sm">Crie e gerencie grupos de leitura com outros membros.</p>
+                        <p class="text-gray-300 text-sm flex-grow">Crie e gerencie grupos de leitura com outros membros.</p>
                     </div>
                 </a>
 
                 <!-- Livros -->
                 <a href="/livro" class="group">
-                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg">
+                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg h-48 flex flex-col">
                         <div class="flex items-center mb-4">
                             <div class="bg-purple-500 rounded-lg p-3 mr-4">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -58,13 +61,13 @@
                             </div>
                             <h3 class="text-white text-xl font-bold">Livros</h3>
                         </div>
-                        <p class="text-gray-300 text-sm">Cadastre livros e construa sua biblioteca virtual.</p>
+                        <p class="text-gray-300 text-sm flex-grow">Cadastre livros e construa sua biblioteca virtual.</p>
                     </div>
                 </a>
 
                 <!-- Associações Grupo-Livro -->
                 <a href="/grupo-livro" class="group">
-                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg">
+                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg h-48 flex flex-col">
                         <div class="flex items-center mb-4">
                             <div class="bg-orange-500 rounded-lg p-3 mr-4">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -73,13 +76,13 @@
                             </div>
                             <h3 class="text-white text-xl font-bold">Associações</h3>
                         </div>
-                        <p class="text-gray-300 text-sm">Associe livros aos grupos para leituras em conjunto.</p>
+                        <p class="text-gray-300 text-sm flex-grow">Associe livros aos grupos para leituras em conjunto.</p>
                     </div>
                 </a>
 
                 <!-- Entrar em Grupo -->
                 <a href="/entrada-grupo" class="group">
-                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg">
+                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg h-48 flex flex-col">
                         <div class="flex items-center mb-4">
                             <div class="bg-teal-500 rounded-lg p-3 mr-4">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -88,13 +91,13 @@
                             </div>
                             <h3 class="text-white text-xl font-bold">Entrar em Grupo</h3>
                         </div>
-                        <p class="text-gray-300 text-sm">Participe de grupos de leitura existentes.</p>
+                        <p class="text-gray-300 text-sm flex-grow">Participe de grupos de leitura existentes.</p>
                     </div>
                 </a>
 
                 <!-- Encontros -->
                 <a href="/encontro" class="group">
-                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg">
+                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg h-48 flex flex-col">
                         <div class="flex items-center mb-4">
                             <div class="bg-red-500 rounded-lg p-3 mr-4">
                                 <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -103,7 +106,7 @@
                             </div>
                             <h3 class="text-white text-xl font-bold">Encontros</h3>
                         </div>
-                        <p class="text-gray-300 text-sm">Organize e participe de encontros de discussão.</p>
+                        <p class="text-gray-300 text-sm flex-grow">Organize e participe de encontros de discussão.</p>
                     </div>
                 </a>
             </div>
