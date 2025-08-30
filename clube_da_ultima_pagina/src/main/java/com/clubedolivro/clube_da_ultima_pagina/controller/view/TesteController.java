@@ -3,7 +3,6 @@ package com.clubedolivro.clube_da_ultima_pagina.controller.view;
 import com.clubedolivro.clube_da_ultima_pagina.entity.Grupo;
 import com.clubedolivro.clube_da_ultima_pagina.entity.UsuarioGrupo;
 import com.clubedolivro.clube_da_ultima_pagina.entity.Usuario;
-import com.clubedolivro.clube_da_ultima_pagina.entity.Perfil;
 import com.clubedolivro.clube_da_ultima_pagina.service.GrupoService;
 import com.clubedolivro.clube_da_ultima_pagina.service.UsuarioGrupoService;
 import com.clubedolivro.clube_da_ultima_pagina.service.UsuarioService;

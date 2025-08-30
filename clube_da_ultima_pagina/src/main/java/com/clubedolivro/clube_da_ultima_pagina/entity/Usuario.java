@@ -39,12 +39,4 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<UsuarioGrupo> grupos;
     
-    @OneToMany(mappedBy = "admin")
-    private List<AcaoAdministrativa> acoesRealizadas;
-    
-    @OneToMany(mappedBy = "usuarioAfetado")
-    private List<AcaoAdministrativa> acoesRecebidas;
-    
-    @OneToMany(mappedBy = "usuario")
-    private List<Voto> votos;
 }
