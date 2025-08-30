@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
+<head>
+    <title>Home - Virtual Book Club</title>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="px-4 py-8">
+            <!-- Hero Section -->
+            <div class="text-center mb-12">
+                <h1 class="text-white text-4xl font-bold mb-4">Virtual Book Club</h1>
+                <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+                    Conecte-se com outros leitores, forme grupos de leitura e descubra novos livros incríveis.
+                </p>
+            </div>
+
+            <!-- Cards de Atalhos -->
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+                <!-- Usuários -->
+                <a href="/usuario" class="group">
+                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-blue-500 rounded-lg p-3 mr-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-white text-xl font-bold">Usuários</h3>
+                        </div>
+                        <p class="text-gray-300 text-sm">Cadastre novos usuários e gerencie perfis de leitores.</p>
+                    </div>
+                </a>
+
+                <!-- Grupos -->
+                <a href="/grupo" class="group">
+                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-green-500 rounded-lg p-3 mr-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-white text-xl font-bold">Grupos</h3>
+                        </div>
+                        <p class="text-gray-300 text-sm">Crie e gerencie grupos de leitura com outros membros.</p>
+                    </div>
+                </a>
+
+                <!-- Livros -->
+                <a href="/livro" class="group">
+                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-purple-500 rounded-lg p-3 mr-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-white text-xl font-bold">Livros</h3>
+                        </div>
+                        <p class="text-gray-300 text-sm">Cadastre livros e construa sua biblioteca virtual.</p>
+                    </div>
+                </a>
+
+                <!-- Associações Grupo-Livro -->
+                <a href="/grupo-livro" class="group">
+                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-orange-500 rounded-lg p-3 mr-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-white text-xl font-bold">Associações</h3>
+                        </div>
+                        <p class="text-gray-300 text-sm">Associe livros aos grupos para leituras em conjunto.</p>
+                    </div>
+                </a>
+
+                <!-- Entrar em Grupo -->
+                <a href="/entrada-grupo" class="group">
+                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-teal-500 rounded-lg p-3 mr-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-white text-xl font-bold">Entrar em Grupo</h3>
+                        </div>
+                        <p class="text-gray-300 text-sm">Participe de grupos de leitura existentes.</p>
+                    </div>
+                </a>
+
+                <!-- Encontros -->
+                <a href="/encontro" class="group">
+                    <div class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-6 shadow-lg">
+                        <div class="flex items-center mb-4">
+                            <div class="bg-red-500 rounded-lg p-3 mr-4">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-white text-xl font-bold">Encontros</h3>
+                        </div>
+                        <p class="text-gray-300 text-sm">Organize e participe de encontros de discussão.</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Seção de Estatísticas -->
+            <div class="mt-16 text-center">
+                <h2 class="text-white text-2xl font-bold mb-8">Acesso Rápido</h2>
+                <div class="grid gap-4 md:grid-cols-4 max-w-4xl mx-auto">
+                    <a href="/lista-usuarios" class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-4 text-center">
+                        <h4 class="text-white font-semibold">Lista de Usuários</h4>
+                        <p class="text-gray-400 text-sm">Ver todos</p>
+                    </a>
+                    <a href="/lista-grupos" class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-4 text-center">
+                        <h4 class="text-white font-semibold">Lista de Grupos</h4>
+                        <p class="text-gray-400 text-sm">Ver todos</p>
+                    </a>
+                    <a href="/lista-livros" class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-4 text-center">
+                        <h4 class="text-white font-semibold">Lista de Livros</h4>
+                        <p class="text-gray-400 text-sm">Ver todos</p>
+                    </a>
+                    <a href="/lista-grupo-livro" class="bg-[#223649] hover:bg-[#2a4055] transition-colors rounded-lg p-4 text-center">
+                        <h4 class="text-white font-semibold">Associações</h4>
+                        <p class="text-gray-400 text-sm">Ver todas</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
