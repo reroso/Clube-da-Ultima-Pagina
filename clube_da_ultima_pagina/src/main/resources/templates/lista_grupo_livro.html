@@ -1,79 +1,124 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
-<head>
+<html
+  lang="pt-BR"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}"
+>
+  <head>
     <title>Lista de Associações Grupo-Livro - Virtual Book Club</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="content-wrapper">
-        <div class="px-4 py-3">
-            <div class="flex flex-wrap justify-between">
-                <h1 class="text-white text-3xl font-bold mb-6">Associações Grupo-Livro</h1>
-                <a href="/grupo-livro" class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-6">
-                    Nova Associação
-                </a>
-            </div>
-
-            <div th:if="${#lists.isEmpty(grupoLivros)}" class="text-center">
-                <div class="bg-[#223649] rounded-lg p-8">
-                    <p class="text-white text-xl mb-4">Nenhuma associação encontrada</p>
-                    <p class="text-gray-400 mb-6">Crie a primeira associação entre um grupo e um livro.</p>
-                    <a href="/grupo-livro" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Criar Primeira Associação
-                    </a>
-                </div>
-            </div>
-
-            <div th:if="${!#lists.isEmpty(grupoLivros)}" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <div th:each="grupoLivro : ${grupoLivros}" class="bg-[#223649] rounded-lg p-6 shadow-lg">
-                    <div class="mb-4">
-                        <h3 class="text-white text-xl font-bold mb-2" th:text="${grupoLivro.grupo.nome}">Nome do Grupo</h3>
-                        <p class="text-gray-300 text-sm mb-1">
-                            <span class="font-semibold">Líder:</span> 
-                            <span th:text="${grupoLivro.grupo.lider.nome}">Nome do Líder</span>
-                        </p>
-                        <p class="text-gray-400 text-sm" th:if="${grupoLivro.grupo.descricao}" th:text="${grupoLivro.grupo.descricao}">
-                            Descrição do grupo
-                        </p>
-                    </div>
-
-                    <div class="border-t border-gray-600 pt-4 mb-4">
-                        <h4 class="text-white text-lg font-semibold mb-2" th:text="${grupoLivro.livro.titulo}">Título do Livro</h4>
-                        <p class="text-gray-300 text-sm mb-1">
-                            <span class="font-semibold">Autor:</span> 
-                            <span th:text="${grupoLivro.livro.autor}">Nome do Autor</span>
-                        </p>
-                        <p class="text-gray-400 text-sm" th:if="${grupoLivro.livro.descricao}" th:text="${grupoLivro.livro.descricao}">
-                            Descrição do livro
-                        </p>
-                    </div>
-
-                    <div th:if="${grupoLivro.observacao}" class="border-t border-gray-600 pt-4">
-                        <h5 class="text-white text-sm font-semibold mb-1">Observação:</h5>
-                        <p class="text-gray-300 text-sm" th:text="${grupoLivro.observacao}">
-                            Observação sobre a associação
-                        </p>
-                    </div>
-
-                    <div class="mt-4 flex justify-between items-center">
-                        <span class="text-xs text-gray-500">
-                            ID: <span th:text="${grupoLivro.id}">#</span>
-                        </span>
-                        <div class="flex space-x-2">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                Ativo
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-8 text-center">
-                <a href="/" class="text-blue-400 hover:text-blue-300">
-                    Voltar ao início
-                </a>
-            </div>
+      <div class="px-4 py-3">
+        <div class="flex flex-wrap justify-between">
+          <h1 class="text-white text-3xl font-bold mb-6">
+            Associações Grupo-Livro
+          </h1>
+          <a
+            href="/grupo-livro"
+            class="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-6"
+          >
+            Nova Associação
+          </a>
         </div>
+
+        <div th:if="${#lists.isEmpty(grupoLivros)}" class="text-center">
+          <div class="bg-[#223649] rounded-lg p-8">
+            <p class="text-white text-xl mb-4">Nenhuma associação encontrada</p>
+            <p class="text-gray-400 mb-6">
+              Crie a primeira associação entre um grupo e um livro.
+            </p>
+            <a
+              href="/grupo-livro"
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Criar Primeira Associação
+            </a>
+          </div>
+        </div>
+
+        <div
+          th:if="${!#lists.isEmpty(grupoLivros)}"
+          class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+        >
+          <div
+            th:each="grupoLivro : ${grupoLivros}"
+            class="bg-[#223649] rounded-lg p-6 shadow-lg"
+          >
+            <div class="mb-4">
+              <h3
+                class="text-white text-xl font-bold mb-2"
+                th:text="${grupoLivro.grupoNome}"
+              >
+                Nome do Grupo
+              </h3>
+              <p class="text-gray-300 text-sm mb-1">
+                <span class="font-semibold">Líder:</span>
+                <span th:text="${grupoLivro.liderNome}">Nome do Líder</span>
+              </p>
+              <p
+                class="text-gray-400 text-sm"
+                th:if="${grupoLivro.grupoDescricao}"
+                th:text="${grupoLivro.grupoDescricao}"
+              >
+                Descrição do grupo
+              </p>
+            </div>
+
+            <div class="border-t border-gray-600 pt-4 mb-4">
+              <h4
+                class="text-white text-lg font-semibold mb-2"
+                th:text="${grupoLivro.livroTitulo}"
+              >
+                Título do Livro
+              </h4>
+              <p class="text-gray-300 text-sm mb-1">
+                <span class="font-semibold">Autor:</span>
+                <span th:text="${grupoLivro.livroAutor}">Nome do Autor</span>
+              </p>
+              <p
+                class="text-gray-400 text-sm"
+                th:if="${grupoLivro.livroDescricao}"
+                th:text="${grupoLivro.livroDescricao}"
+              >
+                Descrição do livro
+              </p>
+            </div>
+
+            <div
+              th:if="${grupoLivro.observacao}"
+              class="border-t border-gray-600 pt-4"
+            >
+              <h5 class="text-white text-sm font-semibold mb-1">Observação:</h5>
+              <p
+                class="text-gray-300 text-sm"
+                th:text="${grupoLivro.observacao}"
+              >
+                Observação sobre a associação
+              </p>
+            </div>
+
+            <div class="mt-4 flex justify-between items-center">
+              <span class="text-xs text-gray-500">
+                ID: <span th:text="${grupoLivro.id}">#</span>
+              </span>
+              <div class="flex space-x-2">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
+                >
+                  Ativo
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-8 text-center">
+          <a href="/" class="text-blue-400 hover:text-blue-300">
+            Voltar ao início
+          </a>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
