@@ -1,6 +1,5 @@
 package com.clubedolivro.clube_da_ultima_pagina.controller.view;
 
-import com.clubedolivro.clube_da_ultima_pagina.dto.GrupoLivroDTO;
 import com.clubedolivro.clube_da_ultima_pagina.entity.GrupoLivro;
 import com.clubedolivro.clube_da_ultima_pagina.entity.Grupo;
 import com.clubedolivro.clube_da_ultima_pagina.entity.Livro;

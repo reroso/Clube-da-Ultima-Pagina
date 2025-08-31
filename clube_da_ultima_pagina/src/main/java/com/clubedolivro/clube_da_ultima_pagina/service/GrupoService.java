@@ -3,7 +3,6 @@ package com.clubedolivro.clube_da_ultima_pagina.service;
 import com.clubedolivro.clube_da_ultima_pagina.entity.Grupo;
 import com.clubedolivro.clube_da_ultima_pagina.entity.UsuarioGrupo;
 import com.clubedolivro.clube_da_ultima_pagina.entity.Perfil;
-import com.clubedolivro.clube_da_ultima_pagina.entity.Usuario;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
