@@ -1,6 +1,7 @@
 package com.clubedolivro.clube_da_ultima_pagina.service;
 
 import com.clubedolivro.clube_da_ultima_pagina.entity.Usuario;
+import com.clubedolivro.clube_da_ultima_pagina.dto.UsuarioDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,6 +16,29 @@ public class UsuarioService {
 
     public List<Usuario> listarTodos() {
         return Collections.unmodifiableList(usuarios);
+    }
+
+    // ✅ MÉTODO PRINCIPAL: Recebe DTO e converte para Entity
+    public Usuario criarUsuario(UsuarioDTO dto) {
+        // Conversão DTO → Entity
+        Usuario usuario = new Usuario();
+        usuario.setNome(dto.getNome());
+        usuario.setEmail(dto.getEmail());
+        usuario.setSenha(dto.getSenha()); // Por enquanto sem criptografia
+        
+        return salvar(usuario);
+    }
+
+    // ✅ MÉTODO PARA LISTAGEM: Retorna DTOs sem senha
+    public List<UsuarioDTO> listarUsuariosDTO() {
+        List<UsuarioDTO> resultado = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            // Usando método seguro (sem senha)
+            String perfil = "Membro"; 
+            UsuarioDTO dto = UsuarioDTO.semSenha(usuario, perfil);
+            resultado.add(dto);
+        }
+        return resultado;
     }
 
     public Usuario salvar(Usuario usuario) {
