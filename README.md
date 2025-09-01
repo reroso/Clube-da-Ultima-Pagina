@@ -39,12 +39,16 @@ O *Clube do Livro Virtual* é uma plataforma web que permite a criação de grup
 
 ## ✅ Status
 
-📍 TR01 - Documentação Inicial: Criação da estrutura do repositório, documentação inicial com README e diagramas de classe, e definição dos requisitos de negócio.
+📍 Projeto em fase de entrega da P1 (Versão v1.0-P1)
 
-📍 TR02 - Preparação da Estrutura: Configuração do ambiente de desenvolvimento, adição de dependências essenciais (Spring Web, Data, Thymeleaf, H2), organização de pacotes e criação da primeira rota.
+Marcos do Projeto (Milestones):
 
-📍 TR03 - Estruturação de Controllers: Implementação da camada de controllers para gerenciar as requisições HTTP, mapeando todas as rotas necessárias para as páginas da aplicação.
+- TR01 - Documentação Inicial: Criação da estrutura do repositório e documentação inicial com README, diagramas e requisitos de negócio.
 
-📍 TR04 - Implementação de Serviço e Entidade: Criação de uma entidade JPA, seu serviço e repositório, com funcionalidades para salvar e buscar dados. O resultado foi a integração completa, do formulário à listagem.
+- TR02 - Preparação da Estrutura: Configuração do ambiente de desenvolvimento, adicionando dependências essenciais e organizando a estrutura inicial.
 
-📍 TR05 - BaseLayout: Estabelecimento da base técnica e visual da aplicação, com a arquitetura de UI funcional, layout navegável e padrões de estilo definidos.
+- TR03 - Estruturação de Controllers: Implementação da camada de controllers para gerenciar as rotas e o fluxo de requisições HTTP.
+
+- TR04 - Implementação de Serviço e Entidade: Criação da entidade JPA, seu serviço e repositório, integrando funcionalidades de cadastro e busca de dados.
+
+- TR05 - BaseLayout: Estabelecimento da base técnica e visual da aplicação, com a arquitetura de UI, layout navegável e padrões de estilo definidos.
