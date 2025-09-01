@@ -39,4 +39,12 @@ O *Clube do Livro Virtual* é uma plataforma web que permite a criação de grup
 
 ## ✅ Status
 
-📍 Projeto em fase de documentação inicial — Milestone TR0
+📍 TR01 - Documentação Inicial: Criação da estrutura do repositório, documentação inicial com README e diagramas de classe, e definição dos requisitos de negócio.
+
+📍 TR02 - Preparação da Estrutura: Configuração do ambiente de desenvolvimento, adição de dependências essenciais (Spring Web, Data, Thymeleaf, H2), organização de pacotes e criação da primeira rota.
+
+📍 TR03 - Estruturação de Controllers: Implementação da camada de controllers para gerenciar as requisições HTTP, mapeando todas as rotas necessárias para as páginas da aplicação.
+
+📍 TR04 - Implementação de Serviço e Entidade: Criação de uma entidade JPA, seu serviço e repositório, com funcionalidades para salvar e buscar dados. O resultado foi a integração completa, do formulário à listagem.
+
+📍 TR05 - BaseLayout: Estabelecimento da base técnica e visual da aplicação, com a arquitetura de UI funcional, layout navegável e padrões de estilo definidos.
