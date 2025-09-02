@@ -2,15 +2,62 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
 <head>
-    <title>Usuário Grupo - Virtual Book Club</title>
+    <title>Membros dos Grupos - Virtual Book Club</title>
 </head>
 <body>
-        <div class="content-wrapper">
-            <div class="flex justify-center py-8">
-                <div class="w-full max-w-4xl px-4">
-                    <h1 class="text-white text-2xl font-bold mb-6">Usuário Grupo</h1>
-                    <div class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                        <p class="text-white">Olá, aqui será a página de Usuário Grupo</p>
+    <div class="content-wrapper">
+        <div class="flex justify-center py-8">
+            <div class="w-full max-w-6xl px-4">
+                <h1 class="text-white text-2xl font-bold mb-6">Membros dos Grupos</h1>
+                
+                <!-- Lista de Associações -->
+                <div class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8">
+                    <div class="mb-4">
+                        <p class="text-white">
+                            <strong>Total de associações: </strong>
+                            <span th:text="${#lists.size(usuarioGrupos)}">0</span>
+                        </p>
+                    </div>
+                    
+                    <div th:if="${#lists.isEmpty(usuarioGrupos)}" class="text-white italic">
+                        <p>Nenhum membro associado a grupos.</p>
+                    </div>
+                    
+                    <div th:unless="${#lists.isEmpty(usuarioGrupos)}" class="overflow-x-auto">
+                        <table class="min-w-full bg-white rounded-lg overflow-hidden">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Usuário</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Grupo</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Perfil no Grupo</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                <tr th:each="usuarioGrupo : ${usuarioGrupos}">
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="flex items-center">
+                                            <div>
+                                                <div class="text-sm leading-5 font-medium text-gray-900" th:text="${usuarioGrupo?.usuario?.nome ?: 'Usuário não encontrado'}">Nome do Usuário</div>
+                                                <div class="text-sm leading-5 text-gray-500" th:text="${usuarioGrupo?.usuario?.email ?: 'Email não disponível'}">email@exemplo.com</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-900" th:text="${usuarioGrupo?.grupo?.nome ?: 'Grupo não encontrado'}">Nome do Grupo</div>
+                                        <div class="text-sm leading-5 text-gray-500" 
+                                             th:text="'Líder: ' + ${usuarioGrupo?.grupo?.lider?.nome ?: 'Não definido'}">
+                                            Líder do Grupo
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800" 
+                                              th:text="${usuarioGrupo?.perfil?.nome ?: 'Perfil não definido'}">
+                                            Perfil
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

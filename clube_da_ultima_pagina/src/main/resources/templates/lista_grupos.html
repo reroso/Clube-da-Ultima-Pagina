@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
+<head>
+    <title>Lista de Grupos - Virtual Book Club</title>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="flex justify-center py-8">
+            <div class="w-full max-w-6xl px-4">
+                <h1 class="text-white text-2xl font-bold mb-6">Lista de Grupos</h1>
+                
+                <div class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <p class="text-white mb-4">
+                        <strong>Total de grupos: </strong>
+                        <span th:text="${#lists.size(grupos)}">0</span>
+                    </p>
+                    
+                    <div th:if="${#lists.isEmpty(grupos)}" class="text-white italic">
+                        <p>Nenhum grupo cadastrado.</p>
+                    </div>
+                    
+                    <div th:unless="${#lists.isEmpty(grupos)}" class="overflow-x-auto">
+                        <table class="min-w-full bg-white rounded-lg overflow-hidden">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">ID</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Nome</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Descrição</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Líder</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                <tr th:each="grupo : ${grupos}">
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" th:text="${grupo.id}">1</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" th:text="${grupo.nome}">Nome do Grupo</td>
+                                    <td class="px-6 py-4 border-b border-gray-200" th:text="${grupo.descricao}">Descrição do grupo...</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" th:text="${grupo.lider?.nome ?: 'Sem líder'}">Nome do Líder</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <a href="/grupo" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            Cadastrar Novo Grupo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

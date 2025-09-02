@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class AcaoAdministrativaViewController {
-
-    @GetMapping("/acao_administrativa")
-    public String acaoAdministrativaPage() {
-        return "acao_administrativa.html";
+public class HomeController {
+    
+    @GetMapping("/")
+    public String home() {
+        return "home";
     }
 }

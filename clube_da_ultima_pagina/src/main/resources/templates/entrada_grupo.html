@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
+<head>
+    <title>Entrar em Grupo - Virtual Book Club</title>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="flex justify-center py-8">
+            <div class="w-full max-w-4xl px-4">
+                <h1 class="text-white text-2xl font-bold mb-6">Entrar em um Grupo</h1>
+                
+                <!-- Formulário de Entrada -->
+                <div class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <!-- Mensagens de Sucesso/Erro -->
+                    <div th:if="${sucessoMensagem}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                        <span th:text="${sucessoMensagem}">Sucesso!</span>
+                    </div>
+                    <div th:if="${erroMensagem}" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                        <span th:text="${erroMensagem}">Erro!</span>
+                    </div>
+
+                    <form th:action="@{/entrada-grupo}" method="post" class="space-y-4">
+                        <!-- Seleção de Usuário -->
+                        <div>
+                            <label class="block text-white text-sm font-bold mb-2" for="idUsuario">
+                                Usuário
+                            </label>
+                            <select name="idUsuario" id="idUsuario" 
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white" required>
+                                <option value="">Selecione um usuário</option>
+                                <option th:each="usuario : ${usuarios}"
+                                        th:value="${usuario.id}"
+                                        th:text="${usuario.nome + ' (' + usuario.email + ')'}">
+                                    Nome do Usuário (email@exemplo.com)
+                                </option>
+                            </select>
+                        </div>
+
+                        <!-- Seleção de Grupo -->
+                        <div>
+                            <label class="block text-white text-sm font-bold mb-2" for="idGrupo">
+                                Grupo
+                            </label>
+                            <select name="idGrupo" id="idGrupo" 
+                                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white" required>
+                                <option value="">Selecione um grupo</option>
+                                <option th:each="grupo : ${grupos}"
+                                        th:value="${grupo.id}"
+                                        th:text="${grupo.nome + ' (Líder: ' + (grupo.lider != null ? grupo.lider.nome : 'Não definido') + ')'}">
+                                    Nome do Grupo (Líder: Nome do Líder)
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-center justify-between mt-6">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                                Entrar no Grupo
+                            </button>
+                            <a href="/usuario_grupo" class="text-blue-300 hover:text-blue-400 text-sm">
+                                Ver Associações Existentes
+                            </a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Instruções -->
+                <div class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8">
+                    <h2 class="text-white text-xl font-semibold mb-4">Instruções</h2>
+                    <ul class="list-disc list-inside text-gray-300 space-y-2">
+                        <li>Selecione o usuário que deseja entrar em um grupo</li>
+                        <li>Escolha o grupo desejado da lista</li>
+                        <li>O usuário será adicionado como membro do grupo</li>
+                        <li>Um usuário não pode entrar duas vezes no mesmo grupo</li>
+                        <li>Você pode ver todas as associações na página de Membros dos Grupos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

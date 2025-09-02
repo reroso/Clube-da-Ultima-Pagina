@@ -4,10 +4,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class AnotacaoViewController {
-
-    @GetMapping("/anotacao")
-    public String anotacaoPage() {
-        return "anotacao.html";
+public class SobreViewController {
+    
+    @GetMapping("/sobre")
+    public String getSobrePage() {
+        return "sobre";
     }
 }

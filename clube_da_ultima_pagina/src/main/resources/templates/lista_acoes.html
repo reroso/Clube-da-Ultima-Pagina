@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
+<head>
+    <title>Lista de Ações Administrativas - Virtual Book Club</title>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="flex justify-center py-8">
+            <div class="w-full max-w-6xl px-4">
+                <h1 class="text-white text-2xl font-bold mb-6">Lista de Ações Administrativas</h1>
+                
+                <div class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <p class="text-white mb-4">
+                        <strong>Total de ações: </strong>
+                        <span th:text="${#lists.size(acoes)}">0</span>
+                    </p>
+                    
+                    <div th:if="${#lists.isEmpty(acoes)}" class="text-white italic">
+                        <p>Nenhuma ação administrativa registrada.</p>
+                    </div>
+                    
+                    <div th:unless="${#lists.isEmpty(acoes)}" class="overflow-x-auto">
+                        <table class="min-w-full bg-white rounded-lg overflow-hidden">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Data</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Administrador</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Usuário Afetado</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Descrição</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">
+                                <tr th:each="acao : ${acoes}">
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" 
+                                        th:text="${#temporals.format(acao.dataAcao, 'dd/MM/yyyy HH:mm')}">01/01/2025</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" 
+                                        th:text="${acao.admin.nome}">Admin</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" 
+                                        th:text="${acao.usuarioAfetado.nome}">Usuário</td>
+                                    <td class="px-6 py-4 border-b border-gray-200" 
+                                        th:text="${acao.descricao}">Descrição da ação</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <a href="/acao_administrativa" 
+                           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                            Registrar Nova Ação
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
