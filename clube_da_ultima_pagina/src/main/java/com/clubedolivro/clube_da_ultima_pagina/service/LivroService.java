@@ -1,36 +1,51 @@
 package com.clubedolivro.clube_da_ultima_pagina.service;
 
 import com.clubedolivro.clube_da_ultima_pagina.entity.Livro;
+import com.clubedolivro.clube_da_ultima_pagina.repository.LivroRepository;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LivroService {
-    private static final List<Livro> livros = new ArrayList<>();
-    private static int nextId = 1;
+    
+    private final LivroRepository livroRepository;
+
+    public LivroService(LivroRepository livroRepository) {
+        this.livroRepository = livroRepository;
+    }
 
     public Livro salvar(Livro livro) {
-        if (livro.getId() == null) {
-            livro.setId(nextId++);
-        }
-        livros.add(livro);
-        return livro;
+        return livroRepository.save(livro);
     }
 
     public List<Livro> listarTodos() {
-        return Collections.unmodifiableList(livros);
+        return livroRepository.findAll();
     }
 
     public Livro buscarPorId(Integer id) {
-        return livros.stream()
-                .filter(l -> l.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+        Optional<Livro> livro = livroRepository.findById(id);
+        return livro.orElse(null);
     }
 
     public void excluir(Integer id) {
-        livros.removeIf(l -> l.getId().equals(id));
+        livroRepository.deleteById(id);
+    }
+
+    // Métodos adicionais usando as queries customizadas do repositório
+    public Optional<Livro> buscarPorTitulo(String titulo) {
+        return livroRepository.findByTituloIgnoreCase(titulo);
+    }
+    
+    public List<Livro> buscarPorAutor(String autor) {
+        return livroRepository.findByAutorContainingIgnoreCase(autor);
+    }
+    
+    public List<Livro> buscarPorTituloContendo(String titulo) {
+        return livroRepository.findByTituloContainingIgnoreCase(titulo);
+    }
+    
+    public boolean existePorTitulo(String titulo) {
+        return livroRepository.existsByTituloIgnoreCase(titulo);
     }
 }
