@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
+<head>
+    <title>Erro - Virtual Book Club</title>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="flex justify-center">
+            <div class="w-full max-w-2xl">
+                <div class="bg-[#223649] rounded-lg p-8 shadow-lg">
+                    <!-- Ícone de Erro -->
+                    <div class="flex justify-center mb-6">
+                        <div class="bg-yellow-100 rounded-full p-4">
+                            <svg class="w-16 h-16 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Título -->
+                    <h1 class="text-white text-3xl font-bold mb-4 text-center" th:text="${titulo}">Erro na Aplicação</h1>
+
+                    <!-- Código do Erro -->
+                    <div class="text-center mb-6">
+                        <span class="bg-yellow-600 text-white px-4 py-2 rounded-full text-sm font-semibold"
+                              th:text="'Código: ' + ${codigoErro}">Código: 500</span>
+                    </div>
+
+                    <!-- Mensagem Principal -->
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6">
+                        <h2 class="text-yellow-800 text-xl font-semibold mb-2" th:text="${mensagem}">Ops! Algo deu errado</h2>
+                        <p class="text-yellow-700" th:text="${detalhes}">Detalhes do erro</p>
+                    </div>
+
+                    <!-- Botões de Ação -->
+                    <div class="flex justify-center space-x-4">
+                        <a th:href="${voltarPara}" 
+                           class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                            <span th:text="${textoBotao}">Voltar</span>
+                        </a>
+                        <button onclick="window.location.reload()" 
+                                class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                            Tentar Novamente
+                        </button>
+                    </div>
+
+                    <!-- Informações Adicionais -->
+                    <div class="mt-8 text-center">
+                        <p class="text-gray-300 text-sm mb-2">O que você pode fazer:</p>
+                        <ul class="text-gray-400 text-sm space-y-1">
+                            <li>• Recarregue a página</li>
+                            <li>• Verifique sua conexão com a internet</li>
+                            <li>• Tente novamente em alguns minutos</li>
+                            <li>• Entre em contato conosco se o problema persistir</li>
+                        </ul>
+                    </div>
+
+                    <!-- Rodapé com Contato -->
+                    <div class="mt-8 text-center border-t border-gray-600 pt-6">
+                        <p class="text-gray-400 text-xs">
+                            Se o problema persistir, entre em contato com nossa equipe de suporte.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

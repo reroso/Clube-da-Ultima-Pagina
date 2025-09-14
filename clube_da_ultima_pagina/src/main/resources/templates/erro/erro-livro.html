@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
+<head>
+    <title>Erro - Livros - Virtual Book Club</title>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="flex justify-center">
+            <div class="w-full max-w-2xl">
+                <div class="bg-[#223649] rounded-lg p-8 shadow-lg">
+                    <!-- Ícone de Erro -->
+                    <div class="flex justify-center mb-6">
+                        <div class="bg-red-100 rounded-full p-4">
+                            <svg class="w-16 h-16 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Título -->
+                    <h1 class="text-white text-3xl font-bold mb-4 text-center" th:text="${titulo}">Erro - Livros</h1>
+
+                    <!-- Código do Erro -->
+                    <div class="text-center mb-6">
+                        <span class="bg-red-600 text-white px-4 py-2 rounded-full text-sm font-semibold"
+                              th:text="'Código: ' + ${codigoErro}">Código: 400</span>
+                    </div>
+
+                    <!-- Mensagem Principal -->
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+                        <h2 class="text-red-800 text-xl font-semibold mb-2" th:text="${mensagem}">Erro ao processar livro</h2>
+                        <p class="text-red-700" th:text="${detalhes}">Detalhes do erro</p>
+                    </div>
+
+                    <!-- Botões de Ação -->
+                    <div class="flex justify-center space-x-4">
+                        <a th:href="${voltarPara}" 
+                           class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                            <span th:text="${textoBotao}">Voltar para Livros</span>
+                        </a>
+                        <a href="/" 
+                           class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                            Página Inicial
+                        </a>
+                    </div>
+
+                    <!-- Sugestões -->
+                    <div class="mt-8 text-center">
+                        <p class="text-gray-300 text-sm mb-2">Algumas sugestões:</p>
+                        <ul class="text-gray-400 text-sm space-y-1">
+                            <li>• Verifique se todos os campos foram preenchidos corretamente</li>
+                            <li>• Certifique-se de que o título do livro não está duplicado</li>
+                            <li>• Tente novamente em alguns instantes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

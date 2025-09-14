@@ -36,19 +36,10 @@ public class LivroViewController {
             return "livro";
         }
 
-        // Verificar se já existe um livro com o mesmo título
-        if (livroService.existePorTitulo(livro.getTitulo())) {
-            model.addAttribute("erroMensagem", "Já existe um livro cadastrado com este título!");
-            return "livro";
-        }
-
-        try {
-            livroService.salvar(livro);
-            model.addAttribute("sucessoMensagem", "Livro cadastrado com sucesso!");
-            model.addAttribute("livroForm", new Livro());
-        } catch (Exception e) {
-            model.addAttribute("erroMensagem", "Erro interno ao salvar o livro. Tente novamente.");
-        }
+        // As exceções agora são tratadas no GlobalExceptionHandler
+        livroService.salvar(livro);
+        model.addAttribute("sucessoMensagem", "Livro cadastrado com sucesso!");
+        model.addAttribute("livroForm", new Livro());
         
         return "livro";
     }
