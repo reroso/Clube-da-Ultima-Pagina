@@ -36,9 +36,11 @@ public class LivroViewController {
             return "livro";
         }
 
+        // As exceções agora são tratadas no GlobalExceptionHandler
         livroService.salvar(livro);
         model.addAttribute("sucessoMensagem", "Livro cadastrado com sucesso!");
         model.addAttribute("livroForm", new Livro());
+        
         return "livro";
     }
 
