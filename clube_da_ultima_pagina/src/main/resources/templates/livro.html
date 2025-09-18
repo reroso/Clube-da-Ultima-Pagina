@@ -2,13 +2,14 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
 <head>
-    <title>Livros - Virtual Book Club</title>
+    <title th:text="${editMode} ? 'Editar Livro - Virtual Book Club' : 'Cadastro de Livro - Virtual Book Club'">Livros - Virtual Book Club</title>
 </head>
 <body>
     <div class="content-wrapper">
         <div class="flex justify-center">
             <div class="w-full max-w-md">
-                <h1 class="text-white text-2xl font-bold mb-6 text-center">Cadastro de Livro</h1>
+                <h1 class="text-white text-2xl font-bold mb-6 text-center" 
+                    th:text="${editMode} ? 'Editar Livro' : 'Cadastro de Livro'">Cadastro de Livro</h1>
                 
                 <!-- Mensagem de Sucesso -->
                 <div th:if="${sucessoMensagem}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
@@ -23,7 +24,14 @@
                     </ul>
                 </div>
 
-                <form th:action="@{/livro}" th:object="${livroForm}" method="post" class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <form th:action="${editMode} ? @{'/editar-livro/' + ${livroForm.id}} : @{/livro}" 
+                      th:object="${livroForm}" 
+                      method="post" 
+                      class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    
+                    <!-- Campo oculto para o ID quando em modo de edição -->
+                    <input type="hidden" th:field="*{id}" th:if="${editMode}"/>
+                    
                     <div class="mb-4">
                         <label class="block text-white text-sm font-bold mb-2" for="titulo">
                             Título
@@ -58,12 +66,19 @@
                     
                     <div class="flex items-center justify-between">
                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                type="submit">
+                                type="submit" 
+                                th:text="${editMode} ? 'Atualizar Livro' : 'Cadastrar Livro'">
                             Cadastrar Livro
                         </button>
                         <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
                            href="/lista-livros">
                             Ver Lista de Livros
+                        </a>
+                    </div>
+                    
+                    <div th:if="${editMode}" class="mt-4 text-center">
+                        <a href="/livro" class="text-green-400 hover:text-green-300">
+                            Cancelar / Novo Livro
                         </a>
                     </div>
                 </form>

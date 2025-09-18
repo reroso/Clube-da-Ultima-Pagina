@@ -72,6 +72,44 @@ public class LivroService {
         }
     }
 
+    public Livro atualizar(Integer id, Livro livroAtualizado) {
+        try {
+            if (id == null) {
+                throw new LivroException("ID do livro não pode ser nulo para atualização.");
+            }
+            
+            // Buscar o livro existente
+            Livro livroExistente = buscarPorId(id);
+            
+            // Validações específicas de negócio
+            if (livroAtualizado.getTitulo() == null || livroAtualizado.getTitulo().trim().isEmpty()) {
+                throw new LivroException("O título do livro não pode estar vazio.");
+            }
+            
+            if (livroAtualizado.getAutor() == null || livroAtualizado.getAutor().trim().isEmpty()) {
+                throw new LivroException("O autor do livro não pode estar vazio.");
+            }
+            
+            // Verificar se já existe outro livro com o mesmo título (exceto o atual)
+            Optional<Livro> livroComMesmoTitulo = buscarPorTitulo(livroAtualizado.getTitulo());
+            if (livroComMesmoTitulo.isPresent() && !livroComMesmoTitulo.get().getId().equals(id)) {
+                throw new LivroException("Já existe outro livro cadastrado com o título '" + livroAtualizado.getTitulo() + "'.");
+            }
+            
+            // Atualizar os campos
+            livroExistente.setTitulo(livroAtualizado.getTitulo());
+            livroExistente.setAutor(livroAtualizado.getAutor());
+            livroExistente.setDescricao(livroAtualizado.getDescricao());
+            
+            return livroRepository.save(livroExistente);
+            
+        } catch (LivroException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new ClubeLivroException("Erro interno ao atualizar o livro.", e);
+        }
+    }
+
     public void excluir(Integer id) {
         try {
             if (id == null) {

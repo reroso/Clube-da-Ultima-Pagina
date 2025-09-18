@@ -1,5 +1,6 @@
 package com.clubedolivro.clube_da_ultima_pagina.exception;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,13 +19,22 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(LivroException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleLivroException(LivroException ex, Model model) {
+    public String handleLivroException(LivroException ex, Model model, HttpServletRequest request) {
         model.addAttribute("titulo", "Erro - Livros");
         model.addAttribute("mensagem", ex.getMessage());
         model.addAttribute("detalhes", "Ocorreu um problema ao processar a operação com livros.");
         model.addAttribute("codigoErro", "400");
-        model.addAttribute("voltarPara", "/livro");
-        model.addAttribute("textoBotao", "Voltar para Livros");
+        
+        // Definir botão de retorno baseado na URL
+        String requestURI = request.getRequestURI();
+        if (requestURI.contains("/editar-livro/")) {
+            model.addAttribute("voltarPara", "/lista-livros");
+            model.addAttribute("textoBotao", "Voltar para Lista de Livros");
+        } else {
+            model.addAttribute("voltarPara", "/livro");
+            model.addAttribute("textoBotao", "Voltar para Livros");
+        }
+        
         return "erro/erro-livro";
     }
 
