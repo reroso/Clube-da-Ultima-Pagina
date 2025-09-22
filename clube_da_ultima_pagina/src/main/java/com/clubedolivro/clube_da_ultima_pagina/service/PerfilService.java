@@ -48,4 +48,20 @@ public class PerfilService {
     public Perfil buscarPorId(Integer id) {
         return perfilRepository.findById(id).orElse(null);
     }
+    
+    public Perfil atualizar(Integer id, Perfil perfilAtualizado) {
+        Perfil perfilExistente = perfilRepository.findById(id).orElse(null);
+        if (perfilExistente == null) {
+            return null;
+        }
+        
+        perfilExistente.setNome(perfilAtualizado.getNome());
+        return perfilRepository.save(perfilExistente);
+    }
+    
+    public void excluir(Integer id) {
+        if (perfilRepository.existsById(id)) {
+            perfilRepository.deleteById(id);
+        }
+    }
 }

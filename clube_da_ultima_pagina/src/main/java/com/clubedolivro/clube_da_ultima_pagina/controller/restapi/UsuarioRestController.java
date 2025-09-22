@@ -1,0 +1,142 @@
+package com.clubedolivro.clube_da_ultima_pagina.controller.restapi;
+
+import com.clubedolivro.clube_da_ultima_pagina.entity.Usuario;
+import com.clubedolivro.clube_da_ultima_pagina.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * Controlador REST para operações CRUD da entidade Usuario
+ * Endpoints simples e didáticos para aprendizado
+ */
+@RestController
+@RequestMapping("/api/v1/usuarios")
+@Tag(name = "Usuarios", description = "API para gerenciamento de usuários")
+public class UsuarioRestController {
+
+    @Autowired
+    private UsuarioService usuarioService;
+
+    /**
+     * Listar todos os usuários
+     * GET /api/v1/usuarios
+     */
+    @GetMapping
+    @Operation(summary = "Listar todos os usuários", description = "Retorna uma lista com todos os usuários cadastrados")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de usuários retornada com sucesso"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    public ResponseEntity<List<Usuario>> listarTodos() {
+        List<Usuario> usuarios = usuarioService.listarTodos();
+        return ResponseEntity.ok(usuarios);
+    }
+
+    /**
+     * Buscar usuário por ID
+     * GET /api/v1/usuarios/{id}
+     */
+    @GetMapping("/{id}")
+    @Operation(summary = "Buscar usuário por ID", description = "Retorna um usuário específico pelo seu ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário encontrado"),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    public ResponseEntity<Usuario> buscarPorId(@PathVariable Integer id) {
+        try {
+            Usuario usuario = usuarioService.buscarPorId(id);
+            return ResponseEntity.ok(usuario);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /**
+     * Criar novo usuário
+     * POST /api/v1/usuarios
+     */
+    @PostMapping
+    @Operation(summary = "Criar novo usuário", description = "Cadastra um novo usuário no sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Usuário criado com sucesso"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    public ResponseEntity<Usuario> criar(@RequestBody Usuario usuario) {
+        try {
+            Usuario novoUsuario = usuarioService.salvar(usuario);
+            return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    /**
+     * Atualizar usuário existente
+     * PUT /api/v1/usuarios/{id}
+     */
+    @PutMapping("/{id}")
+    @Operation(summary = "Atualizar usuário", description = "Atualiza os dados de um usuário existente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Usuário atualizado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
+            @ApiResponse(responseCode = "400", description = "Dados inválidos fornecidos"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    public ResponseEntity<Usuario> atualizar(@PathVariable Integer id, @RequestBody Usuario usuario) {
+        try {
+            Usuario usuarioAtualizado = usuarioService.atualizar(id, usuario);
+            return ResponseEntity.ok(usuarioAtualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /**
+     * Excluir usuário
+     * DELETE /api/v1/usuarios/{id}
+     */
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Excluir usuário", description = "Remove um usuário do sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Usuário excluído com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Usuário não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    public ResponseEntity<Void> excluir(@PathVariable Integer id) {
+        try {
+            usuarioService.excluir(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /**
+     * Buscar usuários por nome
+     * GET /api/v1/usuarios/buscar?nome={nome}
+     */
+    @GetMapping("/buscar")
+    @Operation(summary = "Buscar usuários por nome", description = "Retorna uma lista de usuários que contenham o nome pesquisado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Lista de usuários encontrados"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
+    public ResponseEntity<List<Usuario>> buscarPorNome(@RequestParam String nome) {
+        try {
+            List<Usuario> usuarios = usuarioService.buscarPorNome(nome);
+            return ResponseEntity.ok(usuarios);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+}
