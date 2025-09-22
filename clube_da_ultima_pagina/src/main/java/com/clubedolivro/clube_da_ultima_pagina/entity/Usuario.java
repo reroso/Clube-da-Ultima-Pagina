@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Table(name = "usuario")
@@ -37,6 +38,7 @@ public class Usuario {
     private PerfilEnum perfil;
     
     @OneToMany(mappedBy = "usuario")
+    @ToString.Exclude
     private List<UsuarioGrupo> grupos;
     
 }

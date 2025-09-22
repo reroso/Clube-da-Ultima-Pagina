@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Table(name = "grupo")
@@ -33,5 +34,6 @@ public class Grupo {
 
     @ManyToOne
     @JoinColumn(name = "id_lider")
+    @ToString.Exclude
     private Usuario lider;
 }

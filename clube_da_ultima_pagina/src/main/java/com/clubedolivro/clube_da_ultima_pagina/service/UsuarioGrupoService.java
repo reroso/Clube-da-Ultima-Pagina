@@ -147,8 +147,9 @@ public class UsuarioGrupoService {
                 throw new UsuarioGrupoException("Grupo é obrigatório para a associação.");
             }
             
+            // Se perfil não foi especificado, usar "Membro" como padrão
             if (usuarioGrupoAtualizado.getPerfil() == null) {
-                throw new UsuarioGrupoException("Perfil é obrigatório para a associação.");
+                usuarioGrupoAtualizado.setPerfil(buscarPerfilMembro());
             }
 
             // Verificar se a nova combinação usuário-grupo já existe (exceto para o próprio registro)
