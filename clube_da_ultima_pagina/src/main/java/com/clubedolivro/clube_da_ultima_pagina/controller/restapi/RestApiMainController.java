@@ -36,7 +36,6 @@ public class RestApiMainController {
         endpoints.put("Associações Usuário-Grupo", "/api/v1/usuario-grupos");
         endpoints.put("Encontros", "/api/v1/encontros");
         endpoints.put("Associações Grupo-Livro", "/api/v1/grupo-livros");
-        endpoints.put("Perfis", "/api/v1/perfis");
         
         apiInfo.put("endpoints", endpoints);
         apiInfo.put("documentacao", "/swagger-ui.html");
