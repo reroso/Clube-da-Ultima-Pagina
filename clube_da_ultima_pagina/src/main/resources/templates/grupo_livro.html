@@ -2,13 +2,14 @@
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
 <head>
-    <title>Associar Livro ao Grupo - Virtual Book Club</title>
+    <title th:text="${editMode} ? 'Editar Associação - Virtual Book Club' : 'Associar Livro ao Grupo - Virtual Book Club'">Associar Livro ao Grupo - Virtual Book Club</title>
 </head>
 <body>
     <div class="content-wrapper">
         <div class="flex justify-center">
             <div class="w-full max-w-md">
-                <h1 class="text-white text-2xl font-bold mb-6 text-center">Associar Livro ao Grupo</h1>
+                <h1 class="text-white text-2xl font-bold mb-6 text-center" 
+                    th:text="${editMode} ? 'Editar Associação Grupo-Livro' : 'Associar Livro ao Grupo'">Associar Livro ao Grupo</h1>
                 
                 <!-- Mensagem de Sucesso -->
                 <div th:if="${sucessoMensagem}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
@@ -23,7 +24,14 @@
                     </ul>
                 </div>
 
-                <form th:action="@{/grupo-livro}" th:object="${grupoLivroForm}" method="post" class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <form th:action="${editMode} ? @{'/editar-grupo-livro/' + ${grupoLivroForm.id}} : @{/grupo-livro}" 
+                      th:object="${grupoLivroForm}" 
+                      method="post" 
+                      class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    
+                    <!-- Campo oculto para o ID quando em modo de edição -->
+                    <input type="hidden" th:field="*{id}" th:if="${editMode}"/>
+                    
                     <div class="mb-4">
                         <label class="block text-white text-sm font-bold mb-2" for="grupoId">
                             Selecionar Grupo
@@ -35,7 +43,8 @@
                             <option value="">Escolha um grupo...</option>
                             <option th:each="grupo : ${grupos}" 
                                     th:value="${grupo.id}" 
-                                    th:text="${grupo.nome + ' (Líder: ' + grupo.lider.nome + ')'}">
+                                    th:text="${grupo.nome + ' (Líder: ' + grupo.lider.nome + ')'}"
+                                    th:selected="${editMode != null and editMode and grupoLivroForm.grupo != null and grupo.id == grupoLivroForm.grupo.id}">
                             </option>
                         </select>
                     </div>
@@ -51,7 +60,8 @@
                             <option value="">Escolha um livro...</option>
                             <option th:each="livro : ${livros}" 
                                     th:value="${livro.id}" 
-                                    th:text="${livro.titulo + ' - ' + livro.autor}">
+                                    th:text="${livro.titulo + ' - ' + livro.autor}"
+                                    th:selected="${editMode != null and editMode and grupoLivroForm.livro != null and livro.id == grupoLivroForm.livro.id}">
                             </option>
                         </select>
                     </div>
@@ -68,18 +78,23 @@
                     </div>
 
                     <div class="flex items-center justify-between">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
-                                type="submit">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                type="submit" 
+                                th:text="${editMode} ? 'Atualizar Associação' : 'Associar Livro ao Grupo'">
                             Associar Livro ao Grupo
                         </button>
+                        <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+                           href="/lista-grupo-livro">
+                            Ver Todas as Associações
+                        </a>
+                    </div>
+                    
+                    <div th:if="${editMode}" class="mt-4 text-center">
+                        <a href="/grupo-livro" class="text-green-400 hover:text-green-300">
+                            Cancelar / Nova Associação
+                        </a>
                     </div>
                 </form>
-
-                <div class="text-center">
-                    <a href="/lista-grupo-livro" class="text-blue-400 hover:text-blue-300 text-sm">
-                        Ver todas as associações
-                    </a>
-                </div>
             </div>
         </div>
     </div>

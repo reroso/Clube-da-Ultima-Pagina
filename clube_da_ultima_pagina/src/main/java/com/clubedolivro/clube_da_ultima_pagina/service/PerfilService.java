@@ -1,50 +1,51 @@
 package com.clubedolivro.clube_da_ultima_pagina.service;
 
 import com.clubedolivro.clube_da_ultima_pagina.entity.Perfil;
+import com.clubedolivro.clube_da_ultima_pagina.repository.PerfilRepository;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Collections;
+import org.springframework.transaction.annotation.Transactional;
+import jakarta.annotation.PostConstruct;
 import java.util.List;
 
 @Service
+@Transactional
 public class PerfilService {
-    private static final List<Perfil> perfis = new ArrayList<>();
-    private static int nextId = 1;
+    
+    private final PerfilRepository perfilRepository;
 
-    public PerfilService() {
-        // Inicializa os perfis básicos se ainda não existirem
-        if (perfis.isEmpty()) {
-            criarPerfilSeNaoExiste("Membro");
-            criarPerfilSeNaoExiste("Líder");
-            criarPerfilSeNaoExiste("Administrador");
-        }
+    public PerfilService(PerfilRepository perfilRepository) {
+        this.perfilRepository = perfilRepository;
+    }
+    
+    @PostConstruct
+    public void inicializarPerfis() {
+        // Inicializa os perfis básicos se ainda não existirem no banco
+        criarPerfilSeNaoExiste("Membro");
+        criarPerfilSeNaoExiste("Líder");
+        criarPerfilSeNaoExiste("Administrador");
     }
 
     private void criarPerfilSeNaoExiste(String nome) {
-        if (buscarPorNome(nome) == null) {
+        if (!perfilRepository.existsByNome(nome)) {
             Perfil perfil = new Perfil();
-            perfil.setId(nextId++);
             perfil.setNome(nome);
-            perfis.add(perfil);
+            perfilRepository.save(perfil);
         }
     }
 
     public List<Perfil> listarTodos() {
-        return Collections.unmodifiableList(perfis);
+        return perfilRepository.findAll();
     }
 
     public Perfil buscarPorNome(String nome) {
-        return perfis.stream()
-                .filter(p -> p.getNome().equals(nome))
-                .findFirst()
-                .orElse(null);
+        return perfilRepository.findByNome(nome).orElse(null);
     }
 
     public Perfil salvar(Perfil perfil) {
-        if (perfil.getId() == null) {
-            perfil.setId(nextId++);
-        }
-        perfis.add(perfil);
-        return perfil;
+        return perfilRepository.save(perfil);
+    }
+    
+    public Perfil buscarPorId(Integer id) {
+        return perfilRepository.findById(id).orElse(null);
     }
 }

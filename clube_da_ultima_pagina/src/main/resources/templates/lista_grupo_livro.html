@@ -103,11 +103,19 @@
                 ID: <span th:text="${grupoLivro.id}">#</span>
               </span>
               <div class="flex space-x-2">
-                <span
-                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800"
-                >
-                  Ativo
-                </span>
+                <!-- Botão Editar -->
+                <a th:href="@{'/editar-grupo-livro/' + ${grupoLivro.id}}"
+                   class="bg-yellow-500 hover:bg-yellow-600 text-white text-xs font-bold py-1 px-2 rounded">
+                  Editar
+                </a>
+                <!-- Botão Excluir -->
+                <form th:action="@{'/excluir-grupo-livro/' + ${grupoLivro.id}}" method="post" class="inline">
+                  <button type="submit" 
+                          class="bg-red-500 hover:bg-red-600 text-white text-xs font-bold py-1 px-2 rounded"
+                          onclick="return confirm('Tem certeza que deseja excluir esta associação?')">
+                    Excluir
+                  </button>
+                </form>
               </div>
             </div>
           </div>
