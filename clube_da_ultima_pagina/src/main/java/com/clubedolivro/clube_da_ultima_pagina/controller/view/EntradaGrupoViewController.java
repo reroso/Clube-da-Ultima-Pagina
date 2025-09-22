@@ -80,12 +80,11 @@ public class EntradaGrupoViewController {
                 return "entrada_grupo";
             }
 
-            UsuarioGrupo usuarioGrupoSalvo;
             if (editMode != null && editMode && usuarioGrupo.getId() != null) {
-                usuarioGrupoSalvo = usuarioGrupoService.atualizar(usuarioGrupo.getId(), usuarioGrupo);
+                usuarioGrupoService.atualizar(usuarioGrupo.getId(), usuarioGrupo);
                 model.addAttribute("sucessoMensagem", "Associação atualizada com sucesso!");
             } else {
-                usuarioGrupoSalvo = usuarioGrupoService.salvar(usuarioGrupo);
+                usuarioGrupoService.salvar(usuarioGrupo);
                 model.addAttribute("sucessoMensagem", "Usuário adicionado ao grupo com sucesso!");
             }
             

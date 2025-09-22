@@ -67,12 +67,11 @@ public class EncontroViewController {
                 return "encontro";
             }
 
-            Encontro encontroSalvo;
             if (editMode != null && editMode && encontro.getId() != null) {
-                encontroSalvo = encontroService.atualizar(encontro.getId(), encontro);
+                encontroService.atualizar(encontro.getId(), encontro);
                 model.addAttribute("sucessoMensagem", "Encontro atualizado com sucesso!");
             } else {
-                encontroSalvo = encontroService.salvar(encontro);
+                encontroService.salvar(encontro);
                 model.addAttribute("sucessoMensagem", "Encontro cadastrado com sucesso!");
             }
             
