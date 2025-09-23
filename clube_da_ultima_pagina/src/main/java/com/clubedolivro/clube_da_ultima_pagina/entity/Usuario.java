@@ -37,7 +37,7 @@ public class Usuario {
     @Column(name = "perfil", nullable = false)
     private PerfilEnum perfil;
     
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private List<UsuarioGrupo> grupos;
     

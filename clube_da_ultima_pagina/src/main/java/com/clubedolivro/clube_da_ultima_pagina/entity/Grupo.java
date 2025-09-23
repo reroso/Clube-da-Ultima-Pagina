@@ -1,5 +1,8 @@
 package com.clubedolivro.clube_da_ultima_pagina.entity;
 
+import java.util.List;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,4 +39,16 @@ public class Grupo {
     @JoinColumn(name = "id_lider")
     @ToString.Exclude
     private Usuario lider;
+
+    @OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private List<UsuarioGrupo> usuarioGrupos;
+
+    @OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private List<GrupoLivro> grupoLivros;
+
+    @OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private List<Encontro> encontros;
 }
