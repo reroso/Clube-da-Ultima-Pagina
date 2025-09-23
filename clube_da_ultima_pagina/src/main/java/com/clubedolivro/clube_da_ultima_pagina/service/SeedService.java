@@ -14,6 +14,7 @@ public class SeedService {
     private final EncontroRepository encontroRepository;
     private final GrupoLivroRepository grupoLivroRepository;
     private final UsuarioGrupoRepository usuarioGrupoRepository;
+    private final PerfilRepository perfilRepository;
 
     public SeedService(
             UsuarioRepository usuarioRepository,
@@ -21,7 +22,8 @@ public class SeedService {
             LivroRepository livroRepository,
             EncontroRepository encontroRepository,
             GrupoLivroRepository grupoLivroRepository,
-            UsuarioGrupoRepository usuarioGrupoRepository
+            UsuarioGrupoRepository usuarioGrupoRepository,
+            PerfilRepository perfilRepository
     ) {
         this.usuarioRepository = usuarioRepository;
         this.grupoRepository = grupoRepository;
@@ -29,10 +31,31 @@ public class SeedService {
         this.encontroRepository = encontroRepository;
         this.grupoLivroRepository = grupoLivroRepository;
         this.usuarioGrupoRepository = usuarioGrupoRepository;
+        this.perfilRepository = perfilRepository;
     }
 
     @Transactional
     public void seedDatabase() {
+        // Primeiro, garantir que os 3 perfis do enum existam (criar apenas se não existir)
+        Perfil perfilAdmin = perfilRepository.findByNome("ADMINISTRADOR").orElseGet(() -> {
+            Perfil p = new Perfil();
+            p.setNome("ADMINISTRADOR");
+            return perfilRepository.save(p);
+        });
+        
+        @SuppressWarnings("unused")
+        Perfil perfilLider = perfilRepository.findByNome("LIDER_GRUPO").orElseGet(() -> {
+            Perfil p = new Perfil();
+            p.setNome("LIDER_GRUPO");
+            return perfilRepository.save(p);
+        });
+        
+        Perfil perfilMembro = perfilRepository.findByNome("MEMBRO").orElseGet(() -> {
+            Perfil p = new Perfil();
+            p.setNome("MEMBRO");
+            return perfilRepository.save(p);
+        });
+
         // Usuários
         Usuario usuario1 = new Usuario();
         usuario1.setNome("Alice");
@@ -104,11 +127,13 @@ public class SeedService {
         UsuarioGrupo usuarioGrupo1 = new UsuarioGrupo();
         usuarioGrupo1.setUsuario(usuario1);
         usuarioGrupo1.setGrupo(grupo1);
+        usuarioGrupo1.setPerfil(perfilAdmin);
         usuarioGrupoRepository.save(usuarioGrupo1);
 
         UsuarioGrupo usuarioGrupo2 = new UsuarioGrupo();
         usuarioGrupo2.setUsuario(usuario2);
         usuarioGrupo2.setGrupo(grupo2);
+        usuarioGrupo2.setPerfil(perfilMembro);
         usuarioGrupoRepository.save(usuarioGrupo2);
     }
 }
