@@ -33,10 +33,10 @@ Content-Type: application/json
 
 {
     "usuario": {
-        "id": 2
+        "id": 1
     },
     "grupo": {
-        "id": 1
+        "id": 2
     }
 }
 ```
@@ -51,7 +51,7 @@ Content-Type: application/json
         "id": 2
     },
     "grupo": {
-        "id": 2
+        "id": 1
     }
 }
 ```
@@ -83,9 +83,105 @@ curl -X POST http://localhost:8080/api/v1/usuario-grupos \
 
 ## Validações Importantes
 
-- **Usuário**: Obrigatório, deve referenciar um usuário existente através do ID
-- **Grupo**: Obrigatório, deve referenciar um grupo existente através do ID
-- A combinação usuário-grupo deve ser única (um usuário não pode estar duplicado no mesmo grupo)
+- **Usuário**: 
+  - ⚠️ **OBRIGATÓRIO** - Não pode ser null
+  - Deve referenciar um usuário existente através do ID
+- **Grupo**: 
+  - ⚠️ **OBRIGATÓRIO** - Não pode ser null  
+  - Deve referenciar um grupo existente através do ID
+- **🚨 REGRA DE UNICIDADE**: A combinação usuário-grupo deve ser única
+  - Um usuário não pode estar associado ao mesmo grupo mais de uma vez
+  - Na atualização, não pode criar duplicata com associação existente
+- **Perfil**: Opcional, se não informado será definido como "Membro" automaticamente
+
+## ❌ Principais Causas de Erro 400/404
+
+### 1. **Associação Duplicada (Mais Comum)**
+```json
+// Cenário: Já existe Usuário 2 ↔ Grupo 1 no ID 5
+// ❌ ERRO ao tentar atualizar ID 3 para:
+{
+  "usuario": {"id": 2},
+  "grupo": {"id": 1}  // Conflito!
+}
+
+// ✅ CORRETO - Associação que não duplica:
+{
+  "usuario": {"id": 2},
+  "grupo": {"id": 2}  // OK se não existir
+}
+```
+
+### 2. **IDs Inválidos ou Inexistentes**
+```json
+// ❌ ERRO - Usuário não existe
+{
+  "usuario": {"id": 999},
+  "grupo": {"id": 1}
+}
+
+// ❌ ERRO - Grupo não existe  
+{
+  "usuario": {"id": 1},
+  "grupo": {"id": 999}
+}
+```
+
+### 3. **Campos Obrigatórios Ausentes**
+```json
+// ❌ ERRO - Usuário faltando
+{
+  "grupo": {"id": 1}
+}
+
+// ❌ ERRO - Grupo faltando
+{
+  "usuario": {"id": 1}
+}
+```
+
+---
+
+## 🔧 Troubleshooting - Erro 400/404
+
+### Passo a passo para debugar:
+
+1. **Listar associações existentes:**
+   ```bash
+   curl -X GET http://localhost:8080/api/v1/usuario-grupos
+   ```
+
+2. **Verificar se o usuário existe:**
+   ```bash
+   curl -X GET http://localhost:8080/api/v1/usuarios/2
+   ```
+
+3. **Verificar se o grupo existe:**
+   ```bash
+   curl -X GET http://localhost:8080/api/v1/grupos/2
+   ```
+
+4. **Testar com combinação não duplicada:**
+   ```bash
+   curl -X PUT http://localhost:8080/api/v1/usuario-grupos/3 \
+     -H "Content-Type: application/json" \
+     -d '{
+       "usuario": {"id": 1},
+       "grupo": {"id": 3}
+     }'
+   ```
+
+### 💡 Dicas para Atualização
+- **Sempre verifique** as associações existentes antes de atualizar
+- **Um usuário pode participar de vários grupos** (mas não do mesmo grupo duas vezes)
+- **Use combinações únicas** de usuário-grupo
+- **404 vs 400**: 404 geralmente indica conflito de duplicata, 400 indica dados inválidos
+
+### 🔍 Como encontrar combinações válidas para atualização:
+1. Liste usuários: `GET /api/v1/usuarios`
+2. Liste grupos: `GET /api/v1/grupos`
+3. Liste associações existentes: `GET /api/v1/usuario-grupos`
+4. Escolha combinação que não existe ainda
 
 ---
 
