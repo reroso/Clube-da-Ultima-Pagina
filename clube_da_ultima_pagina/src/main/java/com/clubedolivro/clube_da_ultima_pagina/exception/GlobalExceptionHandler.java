@@ -2,17 +2,30 @@ package com.clubedolivro.clube_da_ultima_pagina.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import java.net.URI;
+import java.time.Instant;
+
 /**
  * Controlador global para tratamento de exceções da aplicação
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    /**
+     * Verifica se a requisição é para uma API REST
+     */
+    private boolean isRestRequest(HttpServletRequest request) {
+        String requestURI = request.getRequestURI();
+        return requestURI != null && requestURI.startsWith("/api/");
+    }
 
     /**
      * Trata exceções específicas de livros
@@ -43,7 +56,19 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(UsuarioException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleUsuarioException(UsuarioException ex, Model model, HttpServletRequest request) {
+    public Object handleUsuarioException(UsuarioException ex, Model model, HttpServletRequest request) {
+        // Se for requisição REST, retorna ProblemDetail
+        if (isRestRequest(request)) {
+            ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(
+                HttpStatus.BAD_REQUEST, ex.getMessage());
+            problemDetail.setTitle("Erro de Validação - Usuário");
+            problemDetail.setType(URI.create("https://clube-livro.com/errors/usuario-validation"));
+            problemDetail.setProperty("timestamp", Instant.now());
+            problemDetail.setProperty("category", "USUARIO");
+            return ResponseEntity.badRequest().body(problemDetail);
+        }
+        
+        // Se for requisição MVC, retorna view
         model.addAttribute("titulo", "Erro - Usuários");
         model.addAttribute("mensagem", ex.getMessage());
         model.addAttribute("detalhes", "Ocorreu um problema ao processar a operação com usuários.");

@@ -40,12 +40,8 @@ public class UsuarioRestController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     public ResponseEntity<Usuario> buscarPorId(@PathVariable Integer id) {
-        try {
-            Usuario usuario = usuarioService.buscarPorId(id);
-            return ResponseEntity.ok(usuario);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        Usuario usuario = usuarioService.buscarPorId(id);
+        return ResponseEntity.ok(usuario);
     }
 
     @PostMapping
@@ -56,12 +52,8 @@ public class UsuarioRestController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     public ResponseEntity<Usuario> criar(@RequestBody Usuario usuario) {
-        try {
-            Usuario novoUsuario = usuarioService.salvar(usuario);
-            return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
-        }
+        Usuario novoUsuario = usuarioService.salvar(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario);
     }
 
     @PutMapping("/{id}")
@@ -73,12 +65,8 @@ public class UsuarioRestController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     public ResponseEntity<Usuario> atualizar(@PathVariable Integer id, @RequestBody Usuario usuario) {
-        try {
-            Usuario usuarioAtualizado = usuarioService.atualizar(id, usuario);
-            return ResponseEntity.ok(usuarioAtualizado);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        Usuario usuarioAtualizado = usuarioService.atualizar(id, usuario);
+        return ResponseEntity.ok(usuarioAtualizado);
     }
 
     @DeleteMapping("/{id}")
@@ -89,11 +77,7 @@ public class UsuarioRestController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     public ResponseEntity<Void> excluir(@PathVariable Integer id) {
-        try {
-            usuarioService.excluir(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        usuarioService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }
