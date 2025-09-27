@@ -38,12 +38,8 @@ public class UsuarioGrupoRestController {
             @ApiResponse(responseCode = "404", description = "Associação não encontrada")
     })
     public ResponseEntity<UsuarioGrupo> buscarPorId(@PathVariable Integer id) {
-        try {
-            UsuarioGrupo usuarioGrupo = usuarioGrupoService.buscarPorId(id);
-            return ResponseEntity.ok(usuarioGrupo);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        UsuarioGrupo usuarioGrupo = usuarioGrupoService.buscarPorId(id);
+        return ResponseEntity.ok(usuarioGrupo);
     }
 
     @PostMapping
@@ -53,12 +49,8 @@ public class UsuarioGrupoRestController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
     public ResponseEntity<UsuarioGrupo> criar(@RequestBody UsuarioGrupo usuarioGrupo) {
-        try {
             UsuarioGrupo novoUsuarioGrupo = usuarioGrupoService.salvar(usuarioGrupo);
             return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuarioGrupo);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
-        }
     }
 
     @PutMapping("/{id}")
@@ -68,12 +60,8 @@ public class UsuarioGrupoRestController {
             @ApiResponse(responseCode = "404", description = "Associação não encontrada")
     })
     public ResponseEntity<UsuarioGrupo> atualizar(@PathVariable Integer id, @RequestBody UsuarioGrupo usuarioGrupo) {
-        try {
-            UsuarioGrupo usuarioGrupoAtualizado = usuarioGrupoService.atualizar(id, usuarioGrupo);
-            return ResponseEntity.ok(usuarioGrupoAtualizado);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        UsuarioGrupo usuarioGrupoAtualizado = usuarioGrupoService.atualizar(id, usuarioGrupo);
+        return ResponseEntity.ok(usuarioGrupoAtualizado);
     }
 
     @DeleteMapping("/{id}")
@@ -83,11 +71,7 @@ public class UsuarioGrupoRestController {
             @ApiResponse(responseCode = "404", description = "Associação não encontrada")
     })
     public ResponseEntity<Void> excluir(@PathVariable Integer id) {
-        try {
-            usuarioGrupoService.sairDoGrupo(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        usuarioGrupoService.sairDoGrupo(id);
+        return ResponseEntity.noContent().build();
     }
 }
