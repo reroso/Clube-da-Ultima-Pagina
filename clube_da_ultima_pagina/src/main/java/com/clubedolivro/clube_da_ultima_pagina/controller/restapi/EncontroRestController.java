@@ -38,12 +38,8 @@ public class EncontroRestController {
             @ApiResponse(responseCode = "404", description = "Encontro não encontrado")
     })
     public ResponseEntity<Encontro> buscarPorId(@PathVariable Integer id) {
-        try {
-            Encontro encontro = encontroService.buscarPorId(id);
-            return ResponseEntity.ok(encontro);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        Encontro encontro = encontroService.buscarPorId(id);
+        return ResponseEntity.ok(encontro);
     }
 
     @PostMapping
@@ -53,41 +49,29 @@ public class EncontroRestController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
     public ResponseEntity<Encontro> criar(@RequestBody Encontro encontro) {
-        try {
-            Encontro novoEncontro = encontroService.salvar(encontro);
-            return ResponseEntity.status(HttpStatus.CREATED).body(novoEncontro);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
-        }
+        Encontro novoEncontro = encontroService.salvar(encontro);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoEncontro);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Atualizar encontro", description = "Atualiza dados de um encontro existente")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Encontro atualizado com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Encontro não encontrado")
+        @ApiResponse(responseCode = "200", description = "Encontro atualizado com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Encontro não encontrado")
     })
     public ResponseEntity<Encontro> atualizar(@PathVariable Integer id, @RequestBody Encontro encontro) {
-        try {
-            Encontro encontroAtualizado = encontroService.atualizar(id, encontro);
-            return ResponseEntity.ok(encontroAtualizado);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        Encontro encontroAtualizado = encontroService.atualizar(id, encontro);
+        return ResponseEntity.ok(encontroAtualizado);
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Excluir encontro", description = "Remove um encontro do sistema")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "Encontro excluído com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Encontro não encontrado")
+        @ApiResponse(responseCode = "204", description = "Encontro excluído com sucesso"),
+        @ApiResponse(responseCode = "404", description = "Encontro não encontrado")
     })
     public ResponseEntity<Void> excluir(@PathVariable Integer id) {
-        try {
-            encontroService.excluir(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        encontroService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }
