@@ -38,12 +38,8 @@ public class GrupoRestController {
             @ApiResponse(responseCode = "404", description = "Grupo não encontrado")
     })
     public ResponseEntity<Grupo> buscarPorId(@PathVariable Integer id) {
-        try {
-            Grupo grupo = grupoService.buscarPorId(id);
-            return ResponseEntity.ok(grupo);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        Grupo grupo = grupoService.buscarPorId(id);
+        return ResponseEntity.ok(grupo);
     }
 
     @PostMapping
@@ -53,12 +49,8 @@ public class GrupoRestController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
     public ResponseEntity<Grupo> criar(@RequestBody Grupo grupo) {
-        try {
-            Grupo novoGrupo = grupoService.salvar(grupo);
-            return ResponseEntity.status(HttpStatus.CREATED).body(novoGrupo);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
-        }
+        Grupo novoGrupo = grupoService.salvar(grupo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoGrupo);
     }
 
     @PutMapping("/{id}")
@@ -68,12 +60,8 @@ public class GrupoRestController {
             @ApiResponse(responseCode = "404", description = "Grupo não encontrado")
     })
     public ResponseEntity<Grupo> atualizar(@PathVariable Integer id, @RequestBody Grupo grupo) {
-        try {
-            Grupo grupoAtualizado = grupoService.atualizar(id, grupo);
-            return ResponseEntity.ok(grupoAtualizado);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        Grupo grupoAtualizado = grupoService.atualizar(id, grupo);
+        return ResponseEntity.ok(grupoAtualizado);
     }
 
     @DeleteMapping("/{id}")
@@ -83,11 +71,7 @@ public class GrupoRestController {
             @ApiResponse(responseCode = "404", description = "Grupo não encontrado")
     })
     public ResponseEntity<Void> excluir(@PathVariable Integer id) {
-        try {
-            grupoService.excluir(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        grupoService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }
