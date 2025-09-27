@@ -38,12 +38,8 @@ public class GrupoLivroRestController {
             @ApiResponse(responseCode = "404", description = "Associação não encontrada")
     })
     public ResponseEntity<GrupoLivro> buscarPorId(@PathVariable Integer id) {
-        try {
-            GrupoLivro grupoLivro = grupoLivroService.buscarPorId(id);
-            return ResponseEntity.ok(grupoLivro);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        GrupoLivro grupoLivro = grupoLivroService.buscarPorId(id);
+        return ResponseEntity.ok(grupoLivro);
     }
 
     @PostMapping
@@ -53,12 +49,8 @@ public class GrupoLivroRestController {
             @ApiResponse(responseCode = "400", description = "Dados inválidos")
     })
     public ResponseEntity<GrupoLivro> criar(@RequestBody GrupoLivro grupoLivro) {
-        try {
-            GrupoLivro novoGrupoLivro = grupoLivroService.salvar(grupoLivro);
-            return ResponseEntity.status(HttpStatus.CREATED).body(novoGrupoLivro);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
-        }
+        GrupoLivro novoGrupoLivro = grupoLivroService.salvar(grupoLivro);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoGrupoLivro);
     }
 
     @PutMapping("/{id}")
@@ -68,12 +60,8 @@ public class GrupoLivroRestController {
             @ApiResponse(responseCode = "404", description = "Associação não encontrada")
     })
     public ResponseEntity<GrupoLivro> atualizar(@PathVariable Integer id, @RequestBody GrupoLivro grupoLivro) {
-        try {
-            GrupoLivro grupoLivroAtualizado = grupoLivroService.atualizar(id, grupoLivro);
-            return ResponseEntity.ok(grupoLivroAtualizado);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        GrupoLivro grupoLivroAtualizado = grupoLivroService.atualizar(id, grupoLivro);
+        return ResponseEntity.ok(grupoLivroAtualizado);
     }
 
     @DeleteMapping("/{id}")
@@ -83,11 +71,7 @@ public class GrupoLivroRestController {
             @ApiResponse(responseCode = "404", description = "Associação não encontrada")
     })
     public ResponseEntity<Void> excluir(@PathVariable Integer id) {
-        try {
-            grupoLivroService.excluir(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        grupoLivroService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }
