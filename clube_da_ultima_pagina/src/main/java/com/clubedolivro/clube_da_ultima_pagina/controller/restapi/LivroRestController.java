@@ -52,12 +52,8 @@ public class LivroRestController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     public ResponseEntity<Livro> buscarPorId(@PathVariable Integer id) {
-        try {
-            Livro livro = livroService.buscarPorId(id);
-            return ResponseEntity.ok(livro);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        Livro livro = livroService.buscarPorId(id);
+        return ResponseEntity.ok(livro);
     }
 
     /**
@@ -72,12 +68,8 @@ public class LivroRestController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     public ResponseEntity<Livro> criar(@RequestBody Livro livro) {
-        try {
-            Livro novoLivro = livroService.salvar(livro);
-            return ResponseEntity.status(HttpStatus.CREATED).body(novoLivro);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
-        }
+        Livro novoLivro = livroService.salvar(livro);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoLivro);
     }
 
     /**
@@ -93,12 +85,8 @@ public class LivroRestController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     public ResponseEntity<Livro> atualizar(@PathVariable Integer id, @RequestBody Livro livro) {
-        try {
-            Livro livroAtualizado = livroService.atualizar(id, livro);
-            return ResponseEntity.ok(livroAtualizado);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        Livro livroAtualizado = livroService.atualizar(id, livro);
+        return ResponseEntity.ok(livroAtualizado);
     }
 
     /**
@@ -113,11 +101,7 @@ public class LivroRestController {
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
     public ResponseEntity<Void> excluir(@PathVariable Integer id) {
-        try {
-            livroService.excluir(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        livroService.excluir(id);
+        return ResponseEntity.noContent().build();
     }
 }
