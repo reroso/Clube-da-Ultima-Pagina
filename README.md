@@ -124,11 +124,11 @@ Todas as APIs retornam erros no formato ProblemDetail (RFC 7807):
 
 ### Pré-requisitos
 - Java 22 ou superior
-- PostgreSQL instalado e configurado
+- H2 instalado e configurado
 - Maven 3.8+
 
 ### Configuração do Banco de Dados
-1. Crie um banco PostgreSQL chamado `clube_livro`
+1. Crie um banco H2 chamado `clube_livro`
 2. Configure as credenciais em `src/main/resources/application.properties`:
 
 ```properties
