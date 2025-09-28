@@ -28,8 +28,6 @@ public class Grupo {
 
     @NotBlank(message = "Nome do grupo é obrigatório")
     @Size(max = 100, message = "Nome deve ter no máximo 100 caracteres")
-    @NotBlank(message = "Nome do grupo é obrigatório")
-    @Size(max = 100, message = "Nome deve ter no máximo 100 caracteres")
     @Column(name = "nome", length = 100, nullable = false)
     private String nome;
 

@@ -41,6 +41,11 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     @JsonIgnore
-    private List<UsuarioGrupo> grupos;
+    private List<UsuarioGrupo> usuarioGrupos;
+    
+    @OneToMany(mappedBy = "lider", cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    @JsonIgnore
+    private List<Grupo> gruposLiderados;
     
 }
