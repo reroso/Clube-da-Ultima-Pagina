@@ -14,9 +14,21 @@
                 </a>
             </div>
 
+            <!-- Mensagens de Feedback -->
+            <div th:if="${sucessoMensagem}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                <span th:text="${sucessoMensagem}"></span>
+            </div>
+            
+            <div th:if="${erroMensagem}" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                <span th:text="${erroMensagem}"></span>
+            </div>
+
             <!-- Mensagem quando não há encontros -->
             <div th:if="${#lists.isEmpty(encontros)}" class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3 mb-6">
                 <p class="text-center">Não há encontros agendados.</p>
+                <p class="text-center mt-2">
+                    <a href="/encontro" class="text-blue-800 underline">Clique aqui para agendar o primeiro encontro</a>
+                </p>
             </div>
 
             <!-- Lista de Encontros -->
@@ -24,10 +36,84 @@
                 <div th:each="encontro : ${encontros}" class="bg-[#223649] rounded-lg shadow-lg p-6">
                     <div class="mb-4">
                         <h3 class="text-white text-xl font-bold mb-2" th:text="${encontro.grupo.nome}">Nome do Grupo</h3>
-                        <p class="text-gray-300" th:text="${#temporals.format(encontro.dataHora, 'dd/MM/yyyy HH:mm')}">Data e Hora</p>
+                        <p class="text-gray-300 mb-1">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            <span th:text="${#temporals.format(encontro.dataHora, 'dd/MM/yyyy')}">Data</span>
+                        </p>
+                        <p class="text-gray-300 mb-1">
+                            <i class="fas fa-clock mr-2"></i>
+                            <span th:text="${#temporals.format(encontro.dataHora, 'HH:mm')}">Horário</span>
+                        </p>
+                        
+                        <!-- Indicador se o encontro é futuro ou passado -->
+                        <div class="mt-2">
+                            <span th:if="${encontro.dataHora.isAfter(T(java.time.LocalDateTime).now())}" 
+                                  class="inline-block bg-green-500 text-white text-xs px-2 py-1 rounded">
+                                <i class="fas fa-arrow-up mr-1"></i>Próximo
+                            </span>
+                            <span th:if="${encontro.dataHora.isBefore(T(java.time.LocalDateTime).now())}" 
+                                  class="inline-block bg-gray-500 text-white text-xs px-2 py-1 rounded">
+                                <i class="fas fa-check mr-1"></i>Realizado
+                            </span>
+                        </div>
                     </div>
-                    <p class="text-gray-400 mb-4" th:text="${encontro.descricao ?: 'Sem descrição'}">Descrição do encontro</p>
+                    
+                    <div class="mb-4">
+                        <p class="text-gray-400 text-sm" th:text="${encontro.descricao ?: 'Sem descrição adicional'}">Descrição do encontro</p>
+                    </div>
+                    
+                    <!-- Botões de Ação -->
+                    <div class="flex space-x-2 mt-4">
+                        <a th:href="@{/encontro(id=${encontro.id})}" 
+                           class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-bold py-2 px-3 rounded text-center">
+                            <i class="fas fa-edit mr-1"></i>Editar
+                        </a>
+                        
+                        <form th:action="@{/encontro/excluir/{id}(id=${encontro.id})}" 
+                              method="post" 
+                              class="flex-1"
+                              onsubmit="return confirm('Tem certeza que deseja excluir este encontro?')">
+                            <button type="submit" 
+                                    class="w-full bg-red-500 hover:bg-red-600 text-white text-sm font-bold py-2 px-3 rounded">
+                                <i class="fas fa-trash mr-1"></i>Excluir
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Informações Adicionais -->
+                    <div class="mt-3 pt-3 border-t border-gray-600">
+                        <p class="text-gray-500 text-xs">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            ID: <span th:text="${encontro.id}">ID</span>
+                        </p>
+                    </div>
                 </div>
+            </div>
+            
+            <!-- Estatísticas -->
+            <div class="mt-8 bg-[#223649] rounded-lg shadow-lg p-6" th:if="${!#lists.isEmpty(encontros)}">
+                <h3 class="text-white text-lg font-bold mb-4">Estatísticas</h3>
+                <div class="grid gap-4 grid-cols-1 md:grid-cols-3">
+                    <div class="text-center">
+                        <p class="text-white text-2xl font-bold" th:text="${totalEncontros}">0</p>
+                        <p class="text-gray-400 text-sm">Total de Encontros</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-white text-2xl font-bold" th:text="${encontrosFuturos}">0</p>
+                        <p class="text-gray-400 text-sm">Encontros Futuros</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-white text-2xl font-bold" th:text="${encontrosPassados}">0</p>
+                        <p class="text-gray-400 text-sm">Encontros Realizados</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botão de Voltar ao Topo -->
+            <div class="mt-8 text-center" th:if="${#lists.size(encontros) > 6}">
+                <a href="#" onclick="window.scrollTo(0,0)" class="text-blue-500 hover:text-blue-800">
+                    <i class="fas fa-arrow-up mr-1"></i>Voltar ao Topo
+                </a>
             </div>
         </div>
     </div>

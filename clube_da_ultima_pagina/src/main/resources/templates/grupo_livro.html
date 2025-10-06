@@ -1,87 +1,147 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
-<head>
-    <title>Associar Livro ao Grupo - Virtual Book Club</title>
-</head>
-<body>
+<html
+  lang="pt-BR"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}"
+>
+  <head>
+    <title
+      th:text="${editMode} ? 'Editar Associação - Virtual Book Club' : 'Associar Livro ao Grupo - Virtual Book Club'"
+    >
+      Associar Livro ao Grupo - Virtual Book Club
+    </title>
+  </head>
+  <body>
     <div class="content-wrapper">
-        <div class="flex justify-center">
-            <div class="w-full max-w-md">
-                <h1 class="text-white text-2xl font-bold mb-6 text-center">Associar Livro ao Grupo</h1>
-                
-                <!-- Mensagem de Sucesso -->
-                <div th:if="${sucessoMensagem}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
-                    <span th:text="${sucessoMensagem}"></span>
-                </div>
-                
-                <!-- Mensagem de Erro -->
-                <div th:if="${erroMensagem}" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
-                    <span th:text="${erroMensagem}"></span>
-                    <ul th:if="${erros}" class="list-disc list-inside mt-2">
-                        <li th:each="erro : ${erros}" th:text="${erro.defaultMessage}"></li>
-                    </ul>
-                </div>
+      <div class="flex justify-center">
+        <div class="w-full max-w-md">
+          <h1
+            class="text-white text-2xl font-bold mb-6 text-center"
+            th:text="${editMode} ? 'Editar Associação Grupo-Livro' : 'Associar Livro ao Grupo'"
+          >
+            Associar Livro ao Grupo
+          </h1>
 
-                <form th:action="@{/grupo-livro}" th:object="${grupoLivroForm}" method="post" class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                    <div class="mb-4">
-                        <label class="block text-white text-sm font-bold mb-2" for="grupoId">
-                            Selecionar Grupo
-                        </label>
-                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="grupoId"
-                                name="grupoId"
-                                required>
-                            <option value="">Escolha um grupo...</option>
-                            <option th:each="grupo : ${grupos}" 
-                                    th:value="${grupo.id}" 
-                                    th:text="${grupo.nome + ' (Líder: ' + grupo.lider.nome + ')'}">
-                            </option>
-                        </select>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <label class="block text-white text-sm font-bold mb-2" for="livroId">
-                            Selecionar Livro
-                        </label>
-                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="livroId"
-                                name="livroId"
-                                required>
-                            <option value="">Escolha um livro...</option>
-                            <option th:each="livro : ${livros}" 
-                                    th:value="${livro.id}" 
-                                    th:text="${livro.titulo + ' - ' + livro.autor}">
-                            </option>
-                        </select>
-                    </div>
+          <!-- Mensagem de Sucesso -->
+          <div
+            th:if="${sucessoMensagem}"
+            class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
+          >
+            <span th:text="${sucessoMensagem}"></span>
+          </div>
 
-                    <div class="mb-6">
-                        <label class="block text-white text-sm font-bold mb-2" for="observacao">
-                            Observação (Opcional)
-                        </label>
-                        <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                  id="observacao"
-                                  th:field="*{observacao}"
-                                  rows="3"
-                                  placeholder="Adicione uma observação sobre esta associação..."></textarea>
-                    </div>
+          <!-- Mensagem de Erro -->
+          <div
+            th:if="${erroMensagem}"
+            class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4"
+          >
+            <span th:text="${erroMensagem}"></span>
+            <ul th:if="${erros}" class="list-disc list-inside mt-2">
+              <li
+                th:each="erro : ${erros}"
+                th:text="${erro.defaultMessage}"
+              ></li>
+            </ul>
+          </div>
 
-                    <div class="flex items-center justify-between">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
-                                type="submit">
-                            Associar Livro ao Grupo
-                        </button>
-                    </div>
-                </form>
+          <form
+            th:action="${editMode} ? @{'/editar-grupo-livro/' + ${grupoLivroForm.id}} : @{/grupo-livro}"
+            th:object="${grupoLivroForm}"
+            method="post"
+            class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4"
+          >
+            <!-- Campo oculto para o ID quando em modo de edição -->
+            <input type="hidden" th:field="*{id}" th:if="${editMode}" />
 
-                <div class="text-center">
-                    <a href="/lista-grupo-livro" class="text-blue-400 hover:text-blue-300 text-sm">
-                        Ver todas as associações
-                    </a>
-                </div>
+            <div class="mb-4">
+              <label
+                class="block text-white text-sm font-bold mb-2"
+                for="grupoId"
+              >
+                Selecionar Grupo
+              </label>
+              <select
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="grupoId"
+                name="grupoId"
+                required
+              >
+                <option value="">Escolha um grupo...</option>
+                <option
+                  th:each="grupo : ${grupos}"
+                  th:value="${grupo.id}"
+                  th:text="${grupo.nome + ' (Líder: ' + grupo.lider.nome + ')'}"
+                  th:selected="${editMode != null and editMode and grupoLivroForm.grupo != null and grupo.id == grupoLivroForm.grupo.id}"
+                ></option>
+              </select>
             </div>
+
+            <div class="mb-4">
+              <label
+                class="block text-white text-sm font-bold mb-2"
+                for="livroId"
+              >
+                Selecionar Livro
+              </label>
+              <select
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="livroId"
+                name="livroId"
+                required
+              >
+                <option value="">Escolha um livro...</option>
+                <option
+                  th:each="livro : ${livros}"
+                  th:value="${livro.id}"
+                  th:text="${livro.titulo + ' - ' + livro.autor}"
+                  th:selected="${editMode != null and editMode and grupoLivroForm.livro != null and livro.id == grupoLivroForm.livro.id}"
+                ></option>
+              </select>
+            </div>
+
+            <div class="mb-6">
+              <label
+                class="block text-white text-sm font-bold mb-2"
+                for="observacao"
+              >
+                Observação (Opcional)
+              </label>
+              <textarea
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="observacao"
+                th:field="*{observacao}"
+                rows="3"
+                placeholder="Adicione uma observação sobre esta associação..."
+              ></textarea>
+            </div>
+
+            <div class="flex items-center gap-2 mb-4">
+              <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit"
+                th:text="${editMode} ? 'Atualizar Associação' : 'Associar Livro ao Grupo'"
+              >
+                Associar Livro ao Grupo
+              </button>
+              <a
+                class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors text-center"
+                href="/lista-grupo-livro"
+              >
+                Ver Todas as Associações
+              </a>
+            </div>
+
+            <div th:if="${editMode}" class="mt-4 text-center">
+              <a
+                href="/grupo-livro"
+                class="text-green-400 hover:text-green-300"
+              >
+                Cancelar / Nova Associação
+              </a>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

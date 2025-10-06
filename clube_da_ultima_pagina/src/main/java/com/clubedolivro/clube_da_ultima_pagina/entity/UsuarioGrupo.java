@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @Table(
@@ -25,13 +26,16 @@ public class UsuarioGrupo {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
+    @ToString.Exclude
     private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_grupo")
+    @ToString.Exclude
     private Grupo grupo;
 
     @ManyToOne
     @JoinColumn(name = "id_perfil")
+    @ToString.Exclude
     private Perfil perfil;
 }

@@ -1,5 +1,8 @@
 package com.clubedolivro.clube_da_ultima_pagina.entity;
 
+import java.util.List;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +12,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "livro")
@@ -31,4 +35,8 @@ public class Livro {
 
     @Column(name = "descricao", columnDefinition = "TEXT")
     private String descricao;
+
+    @OneToMany(mappedBy = "livro", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<GrupoLivro> grupoLivros;
 }

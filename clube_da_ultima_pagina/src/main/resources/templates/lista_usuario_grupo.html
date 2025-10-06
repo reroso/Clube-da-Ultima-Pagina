@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layouts/base :: base(~{::title}, ~{::div.content-wrapper})}">
+<head>
+    <title>Lista de Associações Usuário-Grupo - Virtual Book Club</title>
+</head>
+<body>
+    <div class="content-wrapper">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-white text-2xl font-bold">Lista de Associações Usuário-Grupo</h1>
+                <a href="/entrada-grupo" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Nova Associação
+                </a>
+            </div>
+
+            <!-- Mensagens de Feedback -->
+            <div th:if="${sucessoMensagem}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                <span th:text="${sucessoMensagem}"></span>
+            </div>
+            
+            <div th:if="${erroMensagem}" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+                <span th:text="${erroMensagem}"></span>
+            </div>
+
+            <!-- Mensagem quando não há associações -->
+            <div th:if="${#lists.isEmpty(usuarioGrupos)}" class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3 mb-6">
+                <p class="text-center">Não há associações usuário-grupo cadastradas.</p>
+                <p class="text-center mt-2">
+                    <a href="/entrada-grupo" class="text-blue-800 underline">Clique aqui para criar a primeira associação</a>
+                </p>
+            </div>
+
+            <!-- Lista de Associações em Cards -->
+            <div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <div th:each="usuarioGrupo : ${usuarioGrupos}" class="bg-[#223649] rounded-lg shadow-lg p-6">
+                    <!-- Cabeçalho do Card -->
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex-1">
+                            <h3 class="text-white text-lg font-bold mb-1" th:text="${usuarioGrupo.usuario.nome}">Nome do Usuário</h3>
+                            <p class="text-gray-400 text-sm" th:text="${usuarioGrupo.usuario.email}">email@exemplo.com</p>
+                        </div>
+                        <!-- Badge do Perfil -->
+                        <span class="inline-block px-2 py-1 text-xs font-semibold rounded-full"
+                              th:classappend="${usuarioGrupo.perfil.nome == 'Líder'} ? 'bg-yellow-500 text-yellow-900' : 'bg-green-500 text-green-900'"
+                              th:text="${usuarioGrupo.perfil.nome}">
+                            Perfil
+                        </span>
+                    </div>
+                    
+                    <!-- Informações do Grupo -->
+                    <div class="mb-4">
+                        <p class="text-gray-300 mb-1">
+                            <i class="fas fa-users mr-2"></i>
+                            <span class="font-semibold">Grupo:</span> <span th:text="${usuarioGrupo.grupo.nome}">Nome do Grupo</span>
+                        </p>
+                        <p class="text-gray-400 text-sm">
+                            <i class="fas fa-user-tie mr-2"></i>
+                            <span>Líder do Grupo:</span> 
+                            <span th:text="${usuarioGrupo.grupo.lider != null ? usuarioGrupo.grupo.lider.nome : 'Não definido'}">Líder</span>
+                        </p>
+                        <p class="text-gray-400 text-sm" th:if="${usuarioGrupo.grupo.descricao}">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            <span th:text="${usuarioGrupo.grupo.descricao}">Descrição do grupo</span>
+                        </p>
+                    </div>
+                    
+                    <!-- Botões de Ação -->
+                    <div class="flex space-x-2 mt-4">
+                        <a th:href="@{/entrada-grupo(id=${usuarioGrupo.id})}" 
+                           class="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-bold py-2 px-3 rounded text-center">
+                            <i class="fas fa-edit mr-1"></i>Editar
+                        </a>
+                        
+                        <form th:action="@{/usuario-grupo/sair/{id}(id=${usuarioGrupo.id})}" 
+                              method="post" 
+                              class="flex-1"
+                              onsubmit="return confirm('Tem certeza que deseja remover este usuário do grupo?')">
+                            <button type="submit" 
+                                    class="w-full bg-red-500 hover:bg-red-600 text-white text-sm font-bold py-2 px-3 rounded">
+                                <i class="fas fa-sign-out-alt mr-1"></i>Sair
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Informações Adicionais -->
+                    <div class="mt-3 pt-3 border-t border-gray-600">
+                        <p class="text-gray-500 text-xs">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            ID: <span th:text="${usuarioGrupo.id}">ID</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Estatísticas -->
+            <div class="mt-8 bg-[#223649] rounded-lg shadow-lg p-6" th:if="${!#lists.isEmpty(usuarioGrupos)}">
+                <h3 class="text-white text-lg font-bold mb-4">Estatísticas</h3>
+                <div class="grid gap-4 grid-cols-1 md:grid-cols-3">
+                    <div class="text-center">
+                        <p class="text-white text-2xl font-bold" th:text="${totalAssociacoes}">0</p>
+                        <p class="text-gray-400 text-sm">Total de Associações</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-white text-2xl font-bold" th:text="${totalLideres}">0</p>
+                        <p class="text-gray-400 text-sm">Líderes</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-white text-2xl font-bold" th:text="${totalMembros}">0</p>
+                        <p class="text-gray-400 text-sm">Membros</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabela Alternativa (para telas maiores) -->
+            <div class="hidden xl:block mt-8" th:if="${!#lists.isEmpty(usuarioGrupos)}">
+                <div class="bg-[#223649] rounded-lg shadow-lg overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-600">
+                        <h3 class="text-white text-lg font-bold">Visão Detalhada</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full">
+                            <thead class="bg-gray-700">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Usuário</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Grupo</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Perfil</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Líder do Grupo</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-600">
+                                <tr th:each="usuarioGrupo : ${usuarioGrupos}" class="hover:bg-gray-700">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div>
+                                            <div class="text-sm font-medium text-white" th:text="${usuarioGrupo.usuario.nome}">Nome</div>
+                                            <div class="text-sm text-gray-400" th:text="${usuarioGrupo.usuario.email}">Email</div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-white" th:text="${usuarioGrupo.grupo.nome}">Grupo</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full"
+                                              th:classappend="${usuarioGrupo.perfil.nome == 'Líder'} ? 'bg-yellow-500 text-yellow-900' : 'bg-green-500 text-green-900'"
+                                              th:text="${usuarioGrupo.perfil.nome}">
+                                            Perfil
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                                        <span th:text="${usuarioGrupo.grupo.lider != null ? usuarioGrupo.grupo.lider.nome : 'Não definido'}">Líder</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                        <a th:href="@{/entrada-grupo(id=${usuarioGrupo.id})}" 
+                                           class="text-yellow-400 hover:text-yellow-300">Editar</a>
+                                        <form th:action="@{/usuario-grupo/sair/{id}(id=${usuarioGrupo.id})}" 
+                                              method="post" 
+                                              class="inline"
+                                              onsubmit="return confirm('Tem certeza que deseja remover este usuário do grupo?')">
+                                            <button type="submit" class="text-red-400 hover:text-red-300 ml-2">Sair</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botão de Voltar ao Topo -->
+            <div class="mt-8 text-center" th:if="${#lists.size(usuarioGrupos) > 6}">
+                <a href="#" onclick="window.scrollTo(0,0)" class="text-blue-500 hover:text-blue-800">
+                    <i class="fas fa-arrow-up mr-1"></i>Voltar ao Topo
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

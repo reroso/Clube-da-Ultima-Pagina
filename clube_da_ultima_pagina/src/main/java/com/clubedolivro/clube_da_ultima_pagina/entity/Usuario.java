@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "usuario")
@@ -36,7 +38,14 @@ public class Usuario {
     @Column(name = "perfil", nullable = false)
     private PerfilEnum perfil;
     
-    @OneToMany(mappedBy = "usuario")
-    private List<UsuarioGrupo> grupos;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @JsonIgnore
+    private List<UsuarioGrupo> usuarioGrupos;
+    
+    @OneToMany(mappedBy = "lider", cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    @JsonIgnore
+    private List<Grupo> gruposLiderados;
     
 }

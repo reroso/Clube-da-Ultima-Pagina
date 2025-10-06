@@ -1,0 +1,1 @@
+// ARQUIVO REMOVIDO - usando GlobalExceptionHandler unificado

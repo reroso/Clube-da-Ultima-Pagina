@@ -8,7 +8,12 @@
     <div class="content-wrapper">
         <div class="flex justify-center py-8">
             <div class="w-full max-w-6xl px-4">
-                <h1 class="text-white text-2xl font-bold mb-6">Lista de Usuários</h1>
+                <h1 class="text-white text-2xl font-bold mb-6 text-center">Lista de Usuários</h1>
+                
+                <!-- Mensagem de Sucesso -->
+                <div th:if="${sucessoMensagem}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+                    <span th:text="${sucessoMensagem}"></span>
+                </div>
                 
                 <div class="bg-[#223649] shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     <p class="text-white mb-4">
@@ -28,6 +33,7 @@
                                     <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Nome</th>
                                     <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Email</th>
                                     <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Perfil</th>
+                                    <th class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">Ações</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white">
@@ -36,6 +42,25 @@
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" th:text="${usuario.nome}">Nome</td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" th:text="${usuario.email}">email@teste.com</td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200" th:text="${usuario.perfil}">Membro</td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="flex space-x-2">
+                                            <!-- Botão Editar -->
+                                            <a th:href="@{'/editar-usuario/' + ${usuario.id}}" 
+                                               class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded text-xs inline-flex items-center justify-center min-h-[32px]">
+                                                Editar
+                                            </a>
+                                            <!-- Botão Excluir -->
+                                            <form th:action="@{'/excluir-usuario/' + ${usuario.id}}" 
+                                                  method="post" 
+                                                  style="display: inline" 
+                                                  onsubmit="return confirm('Tem certeza que deseja excluir este usuário?')">
+                                                <button type="submit" 
+                                                        class="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded text-xs inline-flex items-center justify-center min-h-[32px]">
+                                                    Excluir
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
